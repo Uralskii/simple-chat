@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Row,
   Container,
@@ -11,12 +11,14 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 import logo from '../assets/loginimage.jpg';
 
 const LoginPage = () => {
-  const inputUsernameElem = useRef(null);
+  const [validated, setValidated] = useState(false);
 
+  const inputUsernameElem = useRef(null);
   useEffect(() => {
     inputUsernameElem.current.focus();
   }, []);
@@ -26,8 +28,15 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const res = await axios.post('/api/v1/login', values);
+        localStorage.setItem('userId', JSON.stringify(res.data));
+        setValidated(false);
+      } catch (e) {
+        setValidated(true);
+        console.log(e.message);
+      }
     },
   });
 
@@ -35,7 +44,7 @@ const LoginPage = () => {
     <div className="d-flex flex-column h-100">
       <Navbar className="shadow-sm" bg="white" expand="lg">
         <Container>
-          <Navbar.Brand>Hexlet Chat</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
           <Button>Выйти</Button>
         </Container>
       </Navbar>
@@ -51,6 +60,7 @@ const LoginPage = () => {
                   <h1 className="text-center mb-4">Войти</h1>
                   <Form.Floating className="mb-3">
                     <Form.Control
+                      isInvalid={validated}
                       name="username"
                       id="username"
                       autoComplete="username"
@@ -65,6 +75,7 @@ const LoginPage = () => {
                   </Form.Floating>
                   <Form.Floating className="mb-3">
                     <Form.Control
+                      isInvalid={validated}
                       name="password"
                       id="password"
                       autoComplete="current-password"
@@ -75,6 +86,7 @@ const LoginPage = () => {
                       onChange={formik.handleChange}
                     />
                     <Form.Label htmlFor="password">Пароль</Form.Label>
+                    <div className="invalid-tooltip">Неверные имя пользователя или пароль</div>
                   </Form.Floating>
                   <Button disabled={formik.isSubmitting} variant="outline-primary" type="submit" className="w-100 mb-3">Войти</Button>
                 </Form>

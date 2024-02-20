@@ -9,14 +9,19 @@ import {
   Image,
   Form,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 import logo from '../assets/loginimage.jpg';
+import { setCredentials } from '../services/userSlice';
 
 const LoginPage = () => {
   const [validated, setValidated] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputUsernameElem = useRef(null);
   useEffect(() => {
@@ -30,9 +35,11 @@ const LoginPage = () => {
     },
     onSubmit: async (values) => {
       try {
-        const res = await axios.post('/api/v1/login', values);
+        const res = await axios.post('api/v1/login', values);
+        dispatch(setCredentials(res.data));
         localStorage.setItem('userId', JSON.stringify(res.data));
         setValidated(false);
+        navigate('/');
       } catch (e) {
         setValidated(true);
         console.log(e.message);

@@ -11,16 +11,19 @@ import LoginPage from '../pages/LoginPage.jsx';
 import HomePage from '../pages/HomePage.jsx';
 import ErrorPage from '../pages/ErrorPage.jsx';
 import Header from './Header.jsx';
+
 import { setCredentials } from '../services/userSlice.js';
 
 const PrivateRoute = ({ children }) => {
   const authData = JSON.parse(localStorage.getItem('userId'));
   const dispatch = useDispatch();
 
-  dispatch(setCredentials(authData));
-
+  if (authData) {
+    dispatch(setCredentials(authData));
+    return children;
+  }
   return (
-    authData ? children : <Navigate to="/login" />
+    <Navigate to="/login" />
   );
 };
 

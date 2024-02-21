@@ -5,14 +5,19 @@ import {
   Navigate,
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useDispatch } from 'react-redux';
 
 import LoginPage from '../pages/LoginPage.jsx';
 import HomePage from '../pages/HomePage.jsx';
 import ErrorPage from '../pages/ErrorPage.jsx';
 import Header from './Header.jsx';
+import { setCredentials } from '../services/userSlice.js';
 
 const PrivateRoute = ({ children }) => {
   const authData = JSON.parse(localStorage.getItem('userId'));
+  const dispatch = useDispatch();
+
+  dispatch(setCredentials(authData));
 
   return (
     authData ? children : <Navigate to="/login" />

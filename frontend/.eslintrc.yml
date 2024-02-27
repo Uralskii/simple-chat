@@ -30,3 +30,4 @@ rules:
   react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
   arrow-body-style: ["error", "as-needed"]
   no-param-reassign: ["error", { "props": false }]
+  react/jsx-one-expression-per-line: 0

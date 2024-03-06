@@ -12,7 +12,7 @@ import HomePage from '../pages/HomePage.jsx';
 import ErrorPage from '../pages/ErrorPage.jsx';
 import Header from './Header.jsx';
 
-import { setCredentials } from '../services/userSlice.js';
+import { setCredentials } from '../slices/usersSlice.js';
 
 const PrivateRoute = ({ children }) => {
   const authData = JSON.parse(localStorage.getItem('userId'));

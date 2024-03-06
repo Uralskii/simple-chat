@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import App from './components/App';
-import store from './services/store.js';
+import store from './slices/store.js';
 
 const app = () => {
   const root = ReactDOM.createRoot(document.getElementById('chat'));

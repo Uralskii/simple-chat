@@ -13,7 +13,6 @@ import getAuthHeader from '../utilities/getAuthHeader';
 const socket = io();
 
 const SendMessageForm = ({ channel }) => {
-  console.log(channel);
   const dispatch = useDispatch();
 
   const { username } = useSelector((state) => state.users);

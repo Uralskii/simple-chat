@@ -7,9 +7,9 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch } from 'react-redux';
 
-import LoginPage from '../pages/LoginPage.jsx';
-import HomePage from '../pages/HomePage.jsx';
-import ErrorPage from '../pages/ErrorPage.jsx';
+import LoginPage from '../pages/signin/LoginPage.jsx';
+import HomePage from '../pages/chat/HomePage.jsx';
+import ErrorPage from '../pages/404/ErrorPage.jsx';
 import Header from './Header.jsx';
 
 import { setCredentials } from '../slices/usersSlice.js';

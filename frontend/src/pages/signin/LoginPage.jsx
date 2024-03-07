@@ -8,8 +8,8 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import logo from '../assets/loginimage.jpg';
-import LoginForm from '../components/LoginForm';
+import logo from '../../assets/loginimage.jpg';
+import LoginForm from '../../components/LoginForm';
 
 const LoginPage = () => (
   <Container fluid className="h-100">

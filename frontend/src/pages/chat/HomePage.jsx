@@ -6,11 +6,11 @@ import {
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import { fetchMessages } from '../slices/messageSlice';
-import { fetchChannels } from '../slices/channelSlice';
-import SendMessageForm from '../components/SendMessageForm';
-import ChannelsGroup from '../components/ChannelsGroup';
-import MessageGroup from '../components/MessageGroup';
+import { fetchMessages } from '../../slices/messageSlice';
+import { fetchChannels } from '../../slices/channelSlice';
+import SendMessageForm from '../../components/SendMessageForm';
+import ChannelsGroup from '../../components/ChannelsGroup';
+import MessageGroup from '../../components/MessageGroup';
 
 const HomePage = () => {
   const dispatch = useDispatch();

@@ -29,7 +29,7 @@ const SendMessageForm = ({ channel }) => {
     const newMessage = { body: textMessage, channelId: channel.id, username };
 
     try {
-      await axios.post(routes.postMessagePath(), newMessage, { headers: getAuthHeader() });
+      await axios.post(routes.messagesPath(), newMessage, { headers: getAuthHeader() });
       socket.emit('newMessage', newMessage);
     } catch (err) {
       console.log(err);

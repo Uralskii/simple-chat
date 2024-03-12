@@ -12,7 +12,7 @@ import { channelsSelectors } from '../slices/channelSlice';
 import getModal from './modals/getModal';
 
 // eslint-disable-next-line object-curly-newline
-const renderModal = ({ modalInfo, hideModal, changeActiveChannel, setActiveChannel }) => {
+const renderModal = ({ channel, modalInfo, hideModal, changeActiveChannel, setActiveChannel }) => {
   if (!modalInfo.type) {
     return null;
   }
@@ -20,6 +20,7 @@ const renderModal = ({ modalInfo, hideModal, changeActiveChannel, setActiveChann
   const Component = getModal(modalInfo.type);
   return (
     <Component
+      channelInfo={channel}
       modalInfo={modalInfo}
       onHide={hideModal}
       changeChannel={changeActiveChannel}
@@ -31,9 +32,9 @@ const renderModal = ({ modalInfo, hideModal, changeActiveChannel, setActiveChann
 const ChannelsGroup = ({ channel, setActiveChannel }) => {
   const channels = useSelector(channelsSelectors.selectAll);
 
-  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
-  const hideModal = () => setModalInfo({ type: null, item: null });
-  const showModal = (type, item = null) => setModalInfo({ type, item });
+  const [modalInfo, setModalInfo] = useState({ type: null });
+  const hideModal = () => setModalInfo({ type: null });
+  const showModal = (type) => setModalInfo({ type });
 
   const changeActiveChannel = (id, name) => setActiveChannel({ id, name });
   const getClassName = (id) => cn('btn w-100 rounded-0 text-start', { 'btn-secondary': channel.id === id });
@@ -70,7 +71,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
               </button>
               <Dropdown.Toggle split variant={channel.id === id ? 'secondary' : 'none'} id="dropdown-split-basic" />
               <Dropdown.Menu>
-                <Dropdown.Item>Удалить</Dropdown.Item>
+                <Dropdown.Item onClick={() => showModal('removing')}>Удалить</Dropdown.Item>
                 <Dropdown.Item>Переименовать</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -78,6 +79,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
         })}
       </Nav>
       {renderModal({
+        channel,
         modalInfo,
         hideModal,
         changeActiveChannel,

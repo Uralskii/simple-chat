@@ -72,7 +72,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
               <Dropdown.Toggle split variant={channel.id === id ? 'secondary' : 'none'} id="dropdown-split-basic" />
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => showModal('removing')}>Удалить</Dropdown.Item>
-                <Dropdown.Item>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => showModal('renaming')}>Переименовать</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           );

@@ -34,7 +34,7 @@ const AddModal = (props) => {
     onSubmit: async ({ name }) => {
       try {
         await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
-        socket.emit('newChannel', { name });
+        socket.emit('newChannel');
         onHide();
       } catch (err) {
         console.log(err);

@@ -22,7 +22,7 @@ const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.delete(routes.deleteChannelPath(channelInfo.id), { headers: getAuthHeader() });
+      axios.delete(routes.idChannelPath(channelInfo.id), { headers: getAuthHeader() });
       socket.emit('removeChannel');
       onHide();
     } catch (err) {

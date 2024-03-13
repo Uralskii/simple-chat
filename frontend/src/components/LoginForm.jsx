@@ -40,7 +40,7 @@ const LoginForm = () => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+    <Form hasValidated onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
       <h1 className="text-center mb-4">Войти</h1>
       <Form.Floating className="mb-3">
         <Form.Control

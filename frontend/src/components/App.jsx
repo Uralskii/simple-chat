@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch } from 'react-redux';
 
 import LoginPage from '../pages/signin/LoginPage.jsx';
+import SignUpPage from '../pages/signup/SignUpPage.jsx';
 import HomePage from '../pages/chat/HomePage.jsx';
 import ErrorPage from '../pages/404/ErrorPage.jsx';
 import Header from './Header.jsx';
@@ -39,6 +40,7 @@ const App = () => (
         )}
       />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   </Routes>

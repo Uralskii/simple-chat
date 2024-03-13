@@ -1,5 +1,11 @@
 const ru = {
-  translation: '',
+  translation: {
+    buttons: {
+      modals: {
+        add: 'Добавить',
+      },
+    },
+  },
 };
 
 export default ru;

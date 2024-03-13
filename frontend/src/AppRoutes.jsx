@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import LoginPage from '../pages/signin/LoginPage.jsx';
-import SignUpPage from '../pages/signup/SignUpPage.jsx';
-import HomePage from '../pages/chat/HomePage.jsx';
-import ErrorPage from '../pages/404/ErrorPage.jsx';
-import Header from './Header.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { setCredentials } from '../slices/usersSlice.js';
+import LoginPage from './pages/signin/LoginPage';
+import SignUpPage from './pages/signup/SignUpPage';
+import HomePage from './pages/chat/HomePage';
+import ErrorPage from './pages/404/ErrorPage';
+import Header from './components/Header';
+
+import { setCredentials } from './slices/usersSlice.js';
 
 const PrivateRoute = ({ children }) => {
   const authData = JSON.parse(localStorage.getItem('userId'));
@@ -28,7 +25,7 @@ const PrivateRoute = ({ children }) => {
   );
 };
 
-const App = () => (
+const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Header />}>
       <Route
@@ -46,4 +43,4 @@ const App = () => (
   </Routes>
 );
 
-export default App;
+export default AppRoutes;

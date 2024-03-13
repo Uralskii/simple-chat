@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
 
 import routes from '../../utilities/routes';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
@@ -19,6 +20,7 @@ const socket = io();
 
 const AddModal = (props) => {
   const { onHide, changeChannel } = props;
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -70,7 +72,7 @@ const AddModal = (props) => {
           <Form.Label visuallyHidden htmlFor="name">Имя канала</Form.Label>
           <div className="d-flex justify-content-end">
             <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">Отменить</Button>
-            <Button type="submit" className="btn-primary mt-2">Добавить</Button>
+            <Button type="submit" className="btn-primary mt-2">{t('buttons.modals.add')}</Button>
           </div>
         </Form>
       </Modal.Body>

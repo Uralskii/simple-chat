@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import filter from 'leo-profanity';
 
 import { messagesSelectors } from '../slices/messageSlice';
 
@@ -21,7 +22,7 @@ const MessageGroup = ({ channel }) => {
         {activeChannelMessages.map((message) => (
           <div key={message.id} className="text-break mb-2">
             <b>{message.username}</b>
-            : {message.body}
+            : {filter.clean(message.body)}
           </div>
         ))}
       </div>

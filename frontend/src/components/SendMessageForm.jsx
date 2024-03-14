@@ -30,7 +30,7 @@ const SendMessageForm = ({ channel }) => {
 
     try {
       await axios.post(routes.messagesPath(), newMessage, { headers: getAuthHeader() });
-      socket.emit('newMessage', newMessage);
+      socket.emit('newMessage');
     } catch (err) {
       console.log(err);
     }

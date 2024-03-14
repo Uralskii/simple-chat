@@ -19,7 +19,7 @@ import { addChannel } from '../../slices/channelSlice.js';
 const socket = io();
 
 const AddModal = (props) => {
-  const { onHide, changeChannel } = props;
+  const { onHide, changeChannel, notify } = props;
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -37,6 +37,7 @@ const AddModal = (props) => {
       try {
         await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
         socket.emit('newChannel');
+        notify();
         onHide();
       } catch (err) {
         console.log(err);
@@ -72,7 +73,7 @@ const AddModal = (props) => {
           <Form.Label visuallyHidden htmlFor="name">Имя канала</Form.Label>
           <div className="d-flex justify-content-end">
             <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">Отменить</Button>
-            <Button type="submit" className="btn-primary mt-2">{t('buttons.modals.add')}</Button>
+            <Button type="submit" className="btn-primary mt-2">{t('buttons.send')}</Button>
           </div>
         </Form>
       </Modal.Body>

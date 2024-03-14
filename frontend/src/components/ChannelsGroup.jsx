@@ -8,11 +8,14 @@ import {
 import cn from 'classnames';
 import { useSelector } from 'react-redux';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { channelsSelectors } from '../slices/channelSlice';
 import getModal from './modals/getModal';
 
-// eslint-disable-next-line object-curly-newline
-const renderModal = ({ channel, modalInfo, hideModal, changeActiveChannel, setActiveChannel }) => {
+// eslint-disable-next-line object-curly-newline, max-len
+const renderModal = ({ channel, modalInfo, hideModal, changeActiveChannel, setActiveChannel, notify }) => {
   if (!modalInfo.type) {
     return null;
   }
@@ -25,6 +28,7 @@ const renderModal = ({ channel, modalInfo, hideModal, changeActiveChannel, setAc
       onHide={hideModal}
       changeChannel={changeActiveChannel}
       setChannel={setActiveChannel}
+      notify={notify}
     />
   );
 };
@@ -35,6 +39,11 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
   const [modalInfo, setModalInfo] = useState({ type: null });
   const hideModal = () => setModalInfo({ type: null });
   const showModal = (type) => setModalInfo({ type });
+
+  const notify = () => toast.success('Канал создан!', {
+    position: 'top-right',
+    autoClose: 7000,
+  });
 
   const changeActiveChannel = (id, name) => setActiveChannel({ id, name });
   const getClassName = (id) => cn('btn w-100 rounded-0 text-start', { 'btn-secondary': channel.id === id });
@@ -84,7 +93,9 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
         hideModal,
         changeActiveChannel,
         setActiveChannel,
+        notify,
       })}
+      <ToastContainer />
     </Col>
   );
 };

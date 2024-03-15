@@ -7,10 +7,10 @@ import {
   Button,
 } from 'react-bootstrap';
 import axios from 'axios';
-
+import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
 
-import routes from '../../utilities/routes';
+import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
 import { removeChannel } from '../../slices/channelSlice';
 
@@ -18,6 +18,7 @@ const socket = io();
 
 const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,17 +41,17 @@ const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
   return (
     <Modal centered show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <p className="lead">Уверены?</p>
+            <p className="lead">{t('modals.removeBody')}</p>
           </FormGroup>
           <div className="d-flex justify-content-end">
-            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">Отменить</Button>
-            <Button type="submit" className="btn-danger mt-2">Удалить</Button>
+            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
+            <Button type="submit" className="btn-danger mt-2">{t('buttons.channels.remove')}</Button>
           </div>
         </Form>
       </Modal.Body>

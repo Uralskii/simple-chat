@@ -12,7 +12,7 @@ import SendMessageForm from '../../components/SendMessageForm';
 import ChannelsGroup from '../../components/ChannelsGroup';
 import MessageGroup from '../../components/MessageGroup';
 
-const HomePage = () => {
+const ChatPage = () => {
   const dispatch = useDispatch();
   const [activeChannel, setActiveChannel] = useState({ id: '1', name: 'general' });
 
@@ -39,4 +39,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ChatPage;

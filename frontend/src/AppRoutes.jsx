@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LoginPage from './pages/signin/LoginPage';
 import SignUpPage from './pages/signup/SignUpPage';
-import HomePage from './pages/chat/HomePage';
+import ChatPage from './pages/chat/HomePage';
 import ErrorPage from './pages/404/ErrorPage';
 import Header from './components/Header';
 
@@ -32,7 +32,7 @@ const AppRoutes = () => (
         index
         element={(
           <PrivateRoute>
-            <HomePage />
+            <ChatPage />
           </PrivateRoute>
         )}
       />

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 
 import { addMessage } from '../slices/messageSlice';
-import routes from '../utilities/routes';
+import routes from '../routes';
 import getAuthHeader from '../utilities/getAuthHeader';
 
 const socket = io();

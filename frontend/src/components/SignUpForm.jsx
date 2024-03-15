@@ -8,11 +8,13 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { setCredentials } from '../slices/usersSlice';
 
 const SignUpForm = () => {
   const [validated, setValidated] = useState(false);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,16 +26,16 @@ const SignUpForm = () => {
 
   const validationSchema = yup.object().shape({
     username: yup.string()
-      .required('Это обязательное поле')
+      .required(t('errors.required'))
       .trim()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов'),
+      .min(3, t('errors.username'))
+      .max(20, t('errors.username')),
     password: yup.string()
-      .required('Это обязательное поле')
-      .min(6, 'Минимум 6 символов'),
+      .required(t('errors.required'))
+      .min(6, t('errors.password')),
     confirmPassword: yup.string()
-      .required('Это обязательное поле')
-      .oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
+      .required(t('errors.required'))
+      .oneOf([yup.ref('password'), null], t('errors.confirmPassword')),
   });
 
   const formik = useFormik({
@@ -48,7 +50,6 @@ const SignUpForm = () => {
 
       try {
         const res = await axios.post('api/v1/signup', values);
-        console.log(res);
         dispatch(setCredentials(res.data));
         localStorage.setItem('userId', JSON.stringify(res.data));
         navigate('/');
@@ -61,7 +62,7 @@ const SignUpForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('signUpForm.title')}</h1>
       <Form.Floating className="mb-3">
         <Form.Control
           name="username"
@@ -73,7 +74,7 @@ const SignUpForm = () => {
           ref={inputUsernameElem}
           isInvalid={(formik.errors.username && formik.touched.username) || validated}
         />
-        <Form.Label htmlFor="username">Имя пользователя</Form.Label>
+        <Form.Label htmlFor="username">{t('signUpForm.username')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>
       </Form.Floating>
 
@@ -89,7 +90,7 @@ const SignUpForm = () => {
           onChange={formik.handleChange}
           isInvalid={(formik.errors.password && formik.touched.password) || validated}
         />
-        <Form.Label htmlFor="password">Пароль</Form.Label>
+        <Form.Label htmlFor="password">{t('signUpForm.password')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>
       </Form.Floating>
 
@@ -103,13 +104,13 @@ const SignUpForm = () => {
           onChange={formik.handleChange}
           isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword) || validated}
         />
-        <Form.Label htmlFor="username">Подтвердите пароль</Form.Label>
+        <Form.Label htmlFor="username">{t('signUpForm.confirmPassword')}</Form.Label>
         {formik.errors.confirmPassword && formik.touched.confirmPassword
           ? (<Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>)
-          : (<Form.Control.Feedback type="invalid" tooltip>Пользователь уже существует!</Form.Control.Feedback>)}
+          : (<Form.Control.Feedback type="invalid" tooltip>{t('errors.usernameRegistration')}</Form.Control.Feedback>)}
       </Form.Floating>
 
-      <Button disabled={formik.isSubmitting} variant="outline-primary" type="submit" className="w-100 mb-3">Зарегистрироваться</Button>
+      <Button disabled={formik.isSubmitting} variant="outline-primary" type="submit" className="w-100 mb-3">{t('signUpForm.signUp')}</Button>
     </Form>
   );
 };

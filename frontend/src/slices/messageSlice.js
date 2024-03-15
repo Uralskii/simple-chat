@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
-import routes from '../utilities/routes.js';
+import routes from '../routes.js';
 import getAuthHeader from '../utilities/getAuthHeader.js';
 import { removeChannel } from './channelSlice.js';
 

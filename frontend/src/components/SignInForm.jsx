@@ -7,11 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { setCredentials } from '../slices/usersSlice';
 
-const LoginForm = () => {
+const SignInForm = () => {
   const [validated, setValidated] = useState(false);
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,8 +43,8 @@ const LoginForm = () => {
   });
 
   return (
-    <Form hasValidated onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-      <h1 className="text-center mb-4">Войти</h1>
+    <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+      <h1 className="text-center mb-4">{t('signInForm.title')}</h1>
       <Form.Floating className="mb-3">
         <Form.Control
           isInvalid={validated}
@@ -55,7 +58,7 @@ const LoginForm = () => {
           onChange={formik.handleChange}
           ref={inputUsernameElem}
         />
-        <Form.Label htmlFor="username">Ваш ник</Form.Label>
+        <Form.Label htmlFor="username">{t('signInForm.username')}</Form.Label>
       </Form.Floating>
       <Form.Floating className="mb-3">
         <Form.Control
@@ -69,12 +72,12 @@ const LoginForm = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
         />
-        <Form.Label htmlFor="password">Пароль</Form.Label>
-        <div className="invalid-tooltip">Неверные имя пользователя или пароль</div>
+        <Form.Label htmlFor="password">{t('signInForm.password')}</Form.Label>
+        <div className="invalid-tooltip">{t('errors.login')}</div>
       </Form.Floating>
-      <Button disabled={formik.isSubmitting} variant="outline-primary" type="submit" className="w-100 mb-3">Войти</Button>
+      <Button disabled={formik.isSubmitting} variant="outline-primary" type="submit" className="w-100 mb-3">{t('signInForm.title')}</Button>
     </Form>
   );
 };
 
-export default LoginForm;
+export default SignInForm;

@@ -11,8 +11,9 @@ import {
 
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
 
-import routes from '../../utilities/routes';
+import routes from '../../routes.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
 import { updateChannel } from '../../slices/channelSlice';
 
@@ -22,6 +23,7 @@ const RenameModal = (props) => {
   const { channelInfo, onHide } = props;
   const { id, name } = channelInfo;
 
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const inputElem = useRef(null);
@@ -56,7 +58,7 @@ const RenameModal = (props) => {
   return (
     <Modal centered show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modals.renameTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -71,10 +73,10 @@ const RenameModal = (props) => {
               name="name"
             />
           </FormGroup>
-          <Form.Label visuallyHidden htmlFor="name">Имя канала</Form.Label>
+          <Form.Label visuallyHidden htmlFor="name">{t('modals.channelName')}</Form.Label>
           <div className="d-flex justify-content-end">
-            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">Отменить</Button>
-            <Button type="submit" className="btn-primary mt-2">Отправить</Button>
+            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
+            <Button type="submit" className="btn-primary mt-2">{t('buttons.channels.send')}</Button>
           </div>
         </Form>
       </Modal.Body>

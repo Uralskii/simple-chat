@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { setCredentials } from './slices/usersSlice.js';
+
 import LoginPage from './pages/signin/LoginPage';
 import SignUpPage from './pages/signup/SignUpPage';
 import ChatPage from './pages/chat/HomePage';
 import ErrorPage from './pages/404/ErrorPage';
 import Header from './components/Header';
-
-import { setCredentials } from './slices/usersSlice.js';
 
 const PrivateRoute = ({ children }) => {
   const authData = JSON.parse(localStorage.getItem('userId'));

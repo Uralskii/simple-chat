@@ -9,6 +9,8 @@ import store from './slices/store.js';
 const init = async () => {
   await initI18next();
 
+  console.log(store.getState());
+
   return (
     <Provider store={store}>
       <BrowserRouter>

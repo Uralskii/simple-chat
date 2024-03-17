@@ -9,6 +9,7 @@ import {
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
+import { toast } from 'react-toastify';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
@@ -20,11 +21,17 @@ const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const notify = () => toast.success(t('toast.channelRemove'), {
+    position: 'top-right',
+    autoClose: 3000,
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
       axios.delete(routes.idChannelPath(channelInfo.id), { headers: getAuthHeader() });
       socket.emit('removeChannel');
+      notify();
       onHide();
     } catch (err) {
       console.log(err);

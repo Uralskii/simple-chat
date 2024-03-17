@@ -54,6 +54,7 @@ const ru = {
       confirmPassword: 'Пароли должны совпадать',
       network: 'Ошибка соединения',
       usernameRegistration: 'Пользователь уже существует',
+      channelName: 'Должно быть уникальным',
     },
     toast: {
       channelAdd: 'Канал добавлен',

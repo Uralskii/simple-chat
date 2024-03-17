@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import {
   Modal,
@@ -11,25 +11,44 @@ import {
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
-import { addChannel } from '../../slices/channelSlice.js';
+import { addChannel, channelsSelectors } from '../../slices/channelSlice.js';
 
 const socket = io();
 
 const AddModal = (props) => {
-  const { onHide, changeChannel, notify } = props;
+  const { onHide, changeChannel } = props;
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
+
+  const channels = useSelector(channelsSelectors.selectAll);
+  const channelsName = channels.map((channel) => channel.name);
 
   const inputElem = useRef(null);
   useEffect(() => {
     inputElem.current.focus();
   }, []);
 
+  const notify = () => toast.success(t('toast.channelAdd'), {
+    position: 'top-right',
+    autoClose: 3000,
+  });
+
+  const validationSchema = yup.object().shape({
+    name: yup.string()
+      .required()
+      .min(3, t('errors.username'))
+      .max(20, t('errors.username'))
+      .notOneOf(channelsName, t('errors.channelName')),
+  });
+
   const formik = useFormik({
+    validationSchema,
     initialValues: {
       name: '',
     },
@@ -68,7 +87,9 @@ const AddModal = (props) => {
               value={formik.values.body}
               data-testid="input-body"
               name="name"
+              isInvalid={formik.errors.name && formik.touched.name}
             />
+            <FormControl.Feedback type="invalid" tooltip>{formik.errors.name}</FormControl.Feedback>
           </FormGroup>
           <Form.Label visuallyHidden htmlFor="name">{t('modals.channelName')}</Form.Label>
           <div className="d-flex justify-content-end">

@@ -68,7 +68,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
           if (!removable) {
             return (
               <li key={id} className="nav-item w-100">
-                <button id={id} type="button" className={getClassName(id)} onClick={() => changeActiveChannel(id, name)}>
+                <button type="button" className={getClassName(id)} onClick={() => changeActiveChannel(id, name)}>
                   <span className="me-1">#</span>
                   {name}
                 </button>
@@ -77,7 +77,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
           }
           return (
             <Dropdown key={id} className="d-flex" as={ButtonGroup}>
-              <button type="button" id={id} className={getClassName(id)} onClick={() => changeActiveChannel(id, name)}>
+              <button type="button" className={getClassName(id)} onClick={() => changeActiveChannel(id, name)}>
                 <span className="me-1">#</span>
                 {filter.clean(name)}
               </button>

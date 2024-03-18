@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Col,
-  Nav,
   Dropdown,
   ButtonGroup,
 } from 'react-bootstrap';
@@ -63,7 +62,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
           <span className="visually-hidden">{t('buttons.chat.add')}</span>
         </button>
       </div>
-      <Nav className="flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
+      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map(({ id, name, removable }) => {
           if (!removable) {
             return (
@@ -89,7 +88,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
             </Dropdown>
           );
         })}
-      </Nav>
+      </ul>
       {renderModal({
         channel,
         modalInfo,

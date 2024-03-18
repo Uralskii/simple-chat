@@ -1,10 +1,10 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import { setCredentials } from './slices/usersSlice.js';
 
 import LoginPage from './pages/signin/LoginPage';
 import SignUpPage from './pages/signup/SignUpPage';
@@ -12,12 +12,14 @@ import ChatPage from './pages/chat/HomePage';
 import ErrorPage from './pages/404/ErrorPage';
 import Header from './components/Header';
 
-const PrivateRoute = ({ children }) => {
-  const authData = JSON.parse(localStorage.getItem('userId'));
-  const dispatch = useDispatch();
+import { setCredentials } from './slices/usersSlice';
 
-  if (authData) {
-    dispatch(setCredentials(authData));
+const PrivateRoute = ({ children }) => {
+  const dispatch = useDispatch();
+  const auth = JSON.parse(localStorage.getItem('userId'));
+
+  if (auth) {
+    dispatch(setCredentials(auth));
     return children;
   }
   return (

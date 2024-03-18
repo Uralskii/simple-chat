@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider as RollBar, ErrorBoundary } from '@rollbar/react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AppRoutes from './AppRoutes.jsx';
 import initI18next from './initI18next.js';

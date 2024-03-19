@@ -10,7 +10,6 @@ import LoginPage from './pages/signin/LoginPage';
 import SignUpPage from './pages/signup/SignUpPage';
 import ChatPage from './pages/chat/HomePage';
 import ErrorPage from './pages/404/ErrorPage';
-import Header from './components/Header';
 
 import { setCredentials } from './slices/usersSlice';
 
@@ -29,19 +28,17 @@ const PrivateRoute = ({ children }) => {
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Header />}>
-      <Route
-        index
-        element={(
-          <PrivateRoute>
-            <ChatPage />
-          </PrivateRoute>
-        )}
-      />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
-      <Route path="*" element={<ErrorPage />} />
-    </Route>
+    <Route
+      path="/"
+      element={(
+        <PrivateRoute>
+          <ChatPage />
+        </PrivateRoute>
+      )}
+    />
+    <Route path="/login" element={<LoginPage />} />
+    <Route path="/signup" element={<SignUpPage />} />
+    <Route path="*" element={<ErrorPage />} />
   </Routes>
 );
 

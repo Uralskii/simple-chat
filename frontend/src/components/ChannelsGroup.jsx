@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import filter from 'leo-profanity';
 
@@ -97,7 +97,7 @@ const ChannelsGroup = ({ channel, setActiveChannel }) => {
         setActiveChannel,
         notify,
       })}
-      <ToastContainer />
+
     </Col>
   );
 };

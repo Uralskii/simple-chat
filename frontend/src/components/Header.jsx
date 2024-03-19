@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
-import { removeCredentials } from '../slices/usersSlice.js';
+import { removeCredentials } from '../slices/userSlice.js';
 
 const Header = () => {
   const { t } = useTranslation();
-  const token = useSelector((state) => state.users.token);
+  const { token } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 

@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { setCredentials } from '../slices/usersSlice';
+import { setCredentials } from '../slices/userSlice';
 
 const SignInForm = () => {
   const [validated, setValidated] = useState(false);

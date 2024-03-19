@@ -15,7 +15,7 @@ const socket = io();
 const SendMessageForm = ({ channel }) => {
   const dispatch = useDispatch();
 
-  const { username } = useSelector((state) => state.users);
+  const { username } = useSelector((state) => state.user);
   const [textMessage, setInputMessage] = useState('');
 
   const inputElement = useRef(null);

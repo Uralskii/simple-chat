@@ -34,7 +34,7 @@ const SignUpForm = () => {
       .required(t('errors.required'))
       .min(6, t('errors.password')),
     confirmPassword: yup.string()
-      .required(t('errors.confirmPassword'))
+      .required(t('errors.required'))
       .oneOf([yup.ref('password'), null], t('errors.confirmPassword')),
   });
 

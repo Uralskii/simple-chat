@@ -4,17 +4,20 @@ import {
   Container,
   Col,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchMessages } from '../../slices/messageSlice';
 import { fetchChannels } from '../../slices/channelSlice';
 import SendMessageForm from '../../components/SendMessageForm';
 import ChannelsGroup from '../../components/ChannelsGroup';
 import MessageGroup from '../../components/MessageGroup';
+import Spinner from '../../components/Spinner';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
   const [activeChannel, setActiveChannel] = useState({ id: '1', name: 'general' });
+
+  const status = useSelector((state) => state.channels.status);
 
   useEffect(() => {
     dispatch(fetchChannels());
@@ -23,6 +26,12 @@ const ChatPage = () => {
   useEffect(() => {
     dispatch(fetchMessages());
   }, []);
+
+  if (status === 'pending') {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">

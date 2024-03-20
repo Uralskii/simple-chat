@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+// eslint-disable-next-line object-curly-newline
+import { createAsyncThunk, createSlice, createEntityAdapter, current } from '@reduxjs/toolkit';
 import routes from '../routes.js';
 import getAuthHeader from '../utilities/getAuthHeader.js';
 
@@ -24,7 +25,15 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchChannels.fulfilled, channelsAdapter.addMany);
+      .addCase(fetchChannels.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(fetchChannels.fulfilled, (state, action) => {
+        channelsAdapter.setAll(state, action.payload);
+        console.log(action.payload);
+        console.log(current(state));
+        state.status = 'loaded';
+      });
   },
 });
 

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { setCredentials } from '../slices/userSlice';
 
 const SignInForm = () => {
-  const [validated, setValidated] = useState(false);
+  const [isInvalid, setValidated] = useState(false);
 
   const { t } = useTranslation();
 
@@ -47,7 +47,7 @@ const SignInForm = () => {
       <h1 className="text-center mb-4">{t('signInForm.title')}</h1>
       <Form.Floating className="mb-3">
         <Form.Control
-          isInvalid={validated}
+          isInvalid={isInvalid}
           name="username"
           id="username"
           autoComplete="username"
@@ -62,7 +62,7 @@ const SignInForm = () => {
       </Form.Floating>
       <Form.Floating className="mb-3">
         <Form.Control
-          isInvalid={validated}
+          isInvalid={isInvalid}
           name="password"
           id="password"
           autoComplete="current-password"

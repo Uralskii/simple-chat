@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  Row,
-  Container,
-  Col,
-  Card,
-  Image,
-} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import {
+  Row, Container, Col, Card, Image,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
+import LoginForm from '../../components/forms/LoginForm';
 import logo from '../../assets/loginimage.jpg';
-import SignInForm from '../../components/SignInForm';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -24,12 +20,12 @@ const LoginPage = () => {
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <Image src={logo} roundedCircle alt="Войти" />
               </Col>
-              <SignInForm />
+              <LoginForm />
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('text.signInFooterText')} </span>
-                <Link to="/signup">{t('text.signInFooterLink')}</Link>
+                <span>{t('text.loginFooterText')} </span>
+                <Link to="/signup">{t('text.loginFooterLink')}</Link>
               </div>
             </Card.Footer>
           </Card>

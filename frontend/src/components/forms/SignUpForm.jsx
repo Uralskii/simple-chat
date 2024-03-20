@@ -10,7 +10,7 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { setCredentials } from '../slices/userSlice';
+import { setCredentials } from '../../slices/userSlice';
 
 const SignUpForm = () => {
   const [validated, setValidated] = useState(false);

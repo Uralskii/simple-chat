@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 
 import image from '../../assets/signupimage.jpg';
-import SignUpForm from '../../components/SignUpForm';
+import SignUpForm from '../../components/forms/SignUpForm';
 
 const SignUpPage = () => (
   <Container fluid className="h-100">

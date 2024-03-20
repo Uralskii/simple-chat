@@ -31,10 +31,10 @@ const ru = {
       channels: 'Каналы',
       chatTitle: 'Hexlet Chat',
       errorPage: 'Страница не найдена!',
-      signInFooterLink: 'Регистрация',
-      signInFooterText: 'Нет аккаунта?',
+      loginFooterLink: 'Регистрация',
+      loginFooterText: 'Нет аккаунта?',
     },
-    signInForm: {
+    loginForm: {
       username: 'Ваш ник',
       password: 'Пароль',
       title: 'Войти',

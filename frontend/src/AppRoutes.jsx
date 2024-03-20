@@ -7,7 +7,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import LoginPage from './pages/signin/LoginPage';
+import LoginPage from './pages/login/LoginPage';
 import SignUpPage from './pages/signup/SignUpPage';
 import ChatPage from './pages/chat/HomePage';
 import ErrorPage from './pages/404/ErrorPage';

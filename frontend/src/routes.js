@@ -2,7 +2,7 @@ const routes = {
   channelsPath: () => '/api/v1/channels',
   messagesPath: () => '/api/v1/messages',
   idChannelPath: (id) => `/api/v1/channels/${id}`,
-  signInPath: () => 'api/v1/login',
+  loginPath: () => 'api/v1/login',
   signUpPath: () => 'api/v1/signup',
 };
 

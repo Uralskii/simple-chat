@@ -7,7 +7,7 @@ const DefaultChannel = ({ id, name, getClassName }) => {
 
   return (
     <li key={id} className="nav-item w-100">
-      <button type="button" className={getClassName(id)} onClick={() => dispatch(changeChannel({ id, name }))}>
+      <button type="button" id={id} className={getClassName(id)} onClick={() => dispatch(changeChannel({ id, name }))}>
         <span className="me-1">#</span>
         {name}
       </button>

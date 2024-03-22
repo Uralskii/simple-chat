@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // eslint-disable-next-line object-curly-newline
-import { createAsyncThunk, createSlice, createEntityAdapter, current } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import routes from '../routes.js';
 import getAuthHeader from '../utilities/getAuthHeader.js';
 
@@ -15,13 +15,27 @@ export const fetchChannels = createAsyncThunk(
 
 const channelsAdapter = createEntityAdapter();
 
+const initialState = channelsAdapter.getInitialState({
+  activeChannel: {
+    id: '1',
+    name: 'general',
+  },
+  status: 'idle',
+  error: null,
+});
+
 const channelsSlice = createSlice({
   name: 'channels',
-  initialState: channelsAdapter.getInitialState({ status: 'idle', error: null }),
+  initialState,
   reducers: {
     addChannel: channelsAdapter.addOne,
     removeChannel: channelsAdapter.removeOne,
     updateChannel: channelsAdapter.updateOne,
+    changeChannel: (state, action) => {
+      const { name, id } = action.payload;
+      state.activeChannel.id = id;
+      state.activeChannel.name = name;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -30,13 +44,13 @@ const channelsSlice = createSlice({
       })
       .addCase(fetchChannels.fulfilled, (state, action) => {
         channelsAdapter.setAll(state, action.payload);
-        console.log(action.payload);
-        console.log(current(state));
         state.status = 'loaded';
       });
   },
 });
 
-export const { addChannel, removeChannel, updateChannel } = channelsSlice.actions;
+export const {
+  addChannel, removeChannel, updateChannel, changeChannel,
+} = channelsSlice.actions;
 export const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
 export default channelsSlice.reducer;

@@ -1,32 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {
-  Form,
-} from 'react-bootstrap';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form } from 'react-bootstrap';
+import axios from 'axios';
 import { io } from 'socket.io-client';
 
-import { addMessage } from '../slices/messageSlice';
-import routes from '../routes';
-import getAuthHeader from '../utilities/getAuthHeader';
+import routes from '../../routes';
+import getAuthHeader from '../../utilities/getAuthHeader';
+
+import { addMessage } from '../../slices/messageSlice';
 
 const socket = io();
 
-const SendMessageForm = ({ channel }) => {
-  const dispatch = useDispatch();
-
-  const { username } = useSelector((state) => state.user);
+const SendMessageForm = () => {
   const [textMessage, setInputMessage] = useState('');
+  const { username } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.channels.activeChannel);
+
+  const dispatch = useDispatch();
 
   const inputElement = useRef(null);
   useEffect(() => {
     inputElement.current.focus();
-  }, [channel]);
+  }, [id]);
 
   const handleChangeInputMessage = (e) => setInputMessage(e.target.value);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newMessage = { body: textMessage, channelId: channel.id, username };
+    const newMessage = { body: textMessage, channelId: id, username };
 
     try {
       await axios.post(routes.messagesPath(), newMessage, { headers: getAuthHeader() });

@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  Modal,
-  FormGroup,
-  Form,
-  Button,
+  Modal, FormGroup, Form, Button,
 } from 'react-bootstrap';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -13,26 +10,24 @@ import { toast } from 'react-toastify';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
-import { removeChannel } from '../../slices/channelSlice';
+import { removeChannel, changeChannel } from '../../slices/channelSlice';
 
 const socket = io();
 
-const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
+const RemoveModal = ({ isOpen, close }) => {
+  const channelId = useSelector((state) => state.channels.activeChannel.id);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const notify = () => toast.success(t('toast.channelRemove'), {
-    position: 'top-right',
-    autoClose: 3000,
-  });
+  const notify = () => toast.success(t('toast.channelRemove'));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.delete(routes.idChannelPath(channelInfo.id), { headers: getAuthHeader() });
+      axios.delete(routes.idChannelPath(channelId), { headers: getAuthHeader() });
       socket.emit('removeChannel');
       notify();
-      onHide();
+      close();
     } catch (err) {
       console.log(err);
     }
@@ -40,14 +35,14 @@ const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
 
   useEffect(() => {
     socket.on('removeChannel', ({ id }) => {
-      changeChannel('1', 'general');
       dispatch(removeChannel(id));
+      dispatch(changeChannel({ id: '1', name: 'general' }));
     });
   }, []);
 
   return (
-    <Modal centered show>
-      <Modal.Header closeButton onHide={onHide}>
+    <Modal centered show={isOpen}>
+      <Modal.Header closeButton onHide={close}>
         <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
 
@@ -57,7 +52,7 @@ const RemoveModal = ({ channelInfo, onHide, changeChannel }) => {
             <p className="lead">{t('modals.removeBody')}</p>
           </FormGroup>
           <div className="d-flex justify-content-end">
-            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
+            <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
             <Button type="submit" className="btn-danger mt-2">{t('buttons.channels.remove')}</Button>
           </div>
         </Form>

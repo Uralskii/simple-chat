@@ -21,10 +21,7 @@ import { updateChannel, channelsSelectors } from '../../slices/channelSlice';
 
 const socket = io();
 
-const RenameModal = (props) => {
-  const { channelInfo, onHide } = props;
-  const { id, name } = channelInfo;
-
+const RenameModal = ({ isOpen, close }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -35,11 +32,9 @@ const RenameModal = (props) => {
 
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
+  const { id, name } = useSelector((state) => state.channels.activeChannel);
 
-  const notify = () => toast.success(t('toast.channelRename'), {
-    position: 'top-right',
-    autoClose: 3000,
-  });
+  const notify = () => toast.success(t('toast.channelRename'));
 
   const validationSchema = yup.object().shape({
     name: yup.string()
@@ -55,11 +50,13 @@ const RenameModal = (props) => {
       name,
     },
     onSubmit: async (values) => {
+      console.log(values);
       try {
+        // eslint-disable-next-line max-len
         await axios.patch(routes.idChannelPath(id), values, { headers: getAuthHeader() });
         socket.emit('renameChannel');
         notify();
-        onHide();
+        close();
       } catch (err) {
         console.log(err);
       }
@@ -68,6 +65,7 @@ const RenameModal = (props) => {
 
   useEffect(() => {
     socket.on('renameChannel', (payload) => {
+      console.log(payload);
       const channelId = payload.id;
       const newName = payload.name;
 
@@ -76,8 +74,8 @@ const RenameModal = (props) => {
   }, []);
 
   return (
-    <Modal centered show>
-      <Modal.Header closeButton onHide={onHide}>
+    <Modal centered show={isOpen}>
+      <Modal.Header closeButton onHide={close}>
         <Modal.Title>{t('modals.renameTitle')}</Modal.Title>
       </Modal.Header>
 
@@ -97,7 +95,7 @@ const RenameModal = (props) => {
           </FormGroup>
           <Form.Label visuallyHidden htmlFor="name">{t('modals.channelName')}</Form.Label>
           <div className="d-flex justify-content-end">
-            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
+            <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
             <Button type="submit" className="btn-primary mt-2">{t('buttons.channels.send')}</Button>
           </div>
         </Form>

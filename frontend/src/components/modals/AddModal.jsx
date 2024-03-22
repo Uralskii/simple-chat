@@ -16,12 +16,11 @@ import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
-import { addChannel, channelsSelectors } from '../../slices/channelSlice.js';
+import { addChannel, changeChannel, channelsSelectors } from '../../slices/channelSlice.js';
 
 const socket = io();
 
-const AddModal = (props) => {
-  const { onHide, changeChannel } = props;
+const AddModal = ({ isOpen, close }) => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -34,10 +33,7 @@ const AddModal = (props) => {
     inputElem.current.focus();
   }, []);
 
-  const notify = () => toast.success(t('toast.channelAdd'), {
-    position: 'top-right',
-    autoClose: 3000,
-  });
+  const notify = () => toast.success(t('toast.channelAdd'));
 
   const validationSchema = yup.object().shape({
     name: yup.string()
@@ -57,7 +53,7 @@ const AddModal = (props) => {
         await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
         socket.emit('newChannel');
         notify();
-        onHide();
+        close();
       } catch (err) {
         console.log(err);
       }
@@ -67,13 +63,13 @@ const AddModal = (props) => {
   useEffect(() => {
     socket.on('newChannel', (payload) => {
       dispatch(addChannel(payload));
-      changeChannel(payload.id, payload.name);
+      dispatch(changeChannel(payload));
     });
   }, []);
 
   return (
-    <Modal centered show>
-      <Modal.Header closeButton onHide={onHide}>
+    <Modal centered show={isOpen}>
+      <Modal.Header closeButton onHide={close}>
         <Modal.Title>{t('modals.addTitle')}</Modal.Title>
       </Modal.Header>
 
@@ -93,7 +89,7 @@ const AddModal = (props) => {
           </FormGroup>
           <Form.Label visuallyHidden htmlFor="name">{t('modals.channelName')}</Form.Label>
           <div className="d-flex justify-content-end">
-            <Button onClick={onHide} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
+            <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
             <Button type="submit" className="btn-primary mt-2">{t('buttons.channels.send')}</Button>
           </div>
         </Form>

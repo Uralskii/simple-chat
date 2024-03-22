@@ -1,14 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Provider as RollBar, ErrorBoundary } from '@rollbar/react';
-import { ToastContainer } from 'react-toastify';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import AppRoutes from './AppRoutes.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 import initI18next from './initI18next.js';
 import store from './slices/store.js';
+
+import AppRoutes from './AppRoutes.jsx';
+import Modal from './components/modals/Modal.jsx';
+import Toast from './components/Toast.jsx';
 
 const rollbarConfig = {
   accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
@@ -23,7 +25,8 @@ const init = async () => {
       <ErrorBoundary>
         <Provider store={store}>
           <AppRoutes />
-          <ToastContainer />
+          <Toast />
+          <Modal />
         </Provider>
       </ErrorBoundary>
     </RollBar>

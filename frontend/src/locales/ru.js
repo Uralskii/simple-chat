@@ -6,6 +6,7 @@ const ru = {
         back: 'Отменить',
         remove: 'Удалить',
         rename: 'Переименовать',
+        control: 'Управление каналом',
       },
       chat: {
         add: '+',

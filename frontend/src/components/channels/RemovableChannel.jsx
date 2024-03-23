@@ -18,7 +18,9 @@ const RemovableChannel = ({ id, name, getClassName }) => {
         <span className="me-1">#</span>
         {filter.clean(name)}
       </button>
-      <Dropdown.Toggle aria-label="Управление каналом" split variant={channelId === id ? 'secondary' : 'none'} id="dropdown-split-basic" />
+      <Dropdown.Toggle split variant={channelId === id ? 'secondary' : 'none'} id="dropdown-split-basic">
+        <span className="visually-hidden">{t('buttons.channels.control')}</span>
+      </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => dispatch(setModalShow({ isOpen: true, type: 'removing' }))}>{t('buttons.channels.remove')}</Dropdown.Item>
         <Dropdown.Item onClick={() => dispatch(setModalShow({ isOpen: true, type: 'renaming' }))}>{t('buttons.channels.rename')}</Dropdown.Item>

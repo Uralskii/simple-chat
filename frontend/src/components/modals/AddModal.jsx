@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import {
   Modal,
-  FormGroup,
-  FormControl,
   Button,
   Form,
 } from 'react-bootstrap';
@@ -75,20 +73,22 @@ const AddModal = ({ isOpen, close }) => {
 
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <FormGroup>
-            <FormControl
-              required
-              ref={inputElem}
-              onChange={formik.handleChange}
-              value={formik.values.body}
-              data-testid="input-body"
+          <Form.Floating className="mb-3">
+            <Form.Control
               name="name"
+              id="name"
+              required
+              type="text"
+              placeholder="Пароль"
+              value={formik.values.name}
+              onChange={formik.handleChange}
               isInvalid={formik.errors.name && formik.touched.name}
+              ref={inputElem}
             />
-            <FormControl.Feedback type="invalid" tooltip>{formik.errors.name}</FormControl.Feedback>
-          </FormGroup>
-          <Form.Label visuallyHidden htmlFor="name">{t('modals.channelName')}</Form.Label>
-          <div className="d-flex justify-content-end">
+            <label htmlFor="name">{t('modals.channelName')}</label>
+            <div className="invalid-tooltip">{t('errors.username')}</div>
+          </Form.Floating>
+          <div className="d-flex justify-content-end mt-3">
             <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
             <Button type="submit" className="btn-primary mt-2">{t('buttons.channels.send')}</Button>
           </div>

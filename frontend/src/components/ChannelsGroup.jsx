@@ -15,7 +15,7 @@ const ChannelsGroup = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const getClassName = (id) => cn('btn w-100 rounded-0 text-start', { 'btn-secondary': channelId === id });
+  const getClassName = (id) => cn('w-100 rounded-0 text-start text-truncate btn', { 'btn-secondary': channelId === id });
 
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

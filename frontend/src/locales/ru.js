@@ -57,7 +57,7 @@ const ru = {
       channelName: 'Должно быть уникальным',
     },
     toast: {
-      channelAdd: 'Канал добавлен',
+      channelAdd: 'Канал создан',
       channelRemove: 'Канал удален',
       channelRename: 'Канал переименован',
     },

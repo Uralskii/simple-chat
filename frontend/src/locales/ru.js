@@ -53,7 +53,7 @@ const ru = {
       password: 'Не менее 6 символов',
       confirmPassword: 'Пароли должны совпадать',
       network: 'Ошибка соединения',
-      usernameRegistration: 'Пользователь уже существует',
+      usernameRegistration: 'Такой пользователь уже существует',
       channelName: 'Должно быть уникальным',
     },
     toast: {

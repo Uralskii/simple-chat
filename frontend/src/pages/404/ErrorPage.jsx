@@ -5,9 +5,7 @@ const ErrorPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      {t('text.errorPage')}
-    </div>
+    <div>{t('text.errorPage')}</div>
   );
 };
 

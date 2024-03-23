@@ -1,14 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
+  BrowserRouter as Router, Routes, Route, Navigate,
 } from 'react-router-dom';
 
 import LoginPage from './pages/login/LoginPage';
-import SignUpPage from './pages/signup/SignUpPage';
+import SignupPage from './pages/signup/SignupPage';
 import ChatPage from './pages/chat/HomePage';
 import ErrorPage from './pages/404/ErrorPage';
 import Header from './components/Header';
@@ -35,7 +32,7 @@ const AppRoutes = () => (
           )}
         />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>

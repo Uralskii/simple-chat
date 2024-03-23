@@ -3,17 +3,17 @@ import {
   Row, Container, Col, Card, Image,
 } from 'react-bootstrap';
 
-import SignUpForm from '../../components/forms/SignUpForm';
+import SignupForm from '../../components/forms/SignupForm';
 import image from '../../assets/signupimage.jpg';
 
-const SignUpPage = () => (
+const SignupPage = () => (
   <Container fluid className="h-100">
     <Row className="justify-content-center align-content-center h-100">
       <Col className="col-12 col-md-8 col-xxl-6">
         <Card className="shadow-sm">
           <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
             <Image src={image} roundedCircle alt="Зарегистрироваться" />
-            <SignUpForm />
+            <SignupForm />
           </Card.Body>
         </Card>
       </Col>
@@ -21,4 +21,4 @@ const SignUpPage = () => (
   </Container>
 );
 
-export default SignUpPage;
+export default SignupPage;

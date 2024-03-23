@@ -11,8 +11,9 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { setCredentials } from '../../slices/userSlice';
+import routes from '../../routes';
 
-const SignUpForm = () => {
+const SignupForm = () => {
   const [validated, setValidated] = useState(false);
   const { t } = useTranslation();
 
@@ -49,7 +50,7 @@ const SignUpForm = () => {
       setValidated(false);
 
       try {
-        const res = await axios.post('api/v1/signup', values);
+        const res = await axios.post(routes.signupPath(), values);
         dispatch(setCredentials(res.data));
         localStorage.setItem('userId', JSON.stringify(res.data));
         navigate('/');
@@ -104,7 +105,7 @@ const SignUpForm = () => {
           onChange={formik.handleChange}
           isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword) || validated}
         />
-        <Form.Label htmlFor="username">{t('signUpForm.confirmPassword')}</Form.Label>
+        <Form.Label htmlFor="confirmPassword">{t('signUpForm.confirmPassword')}</Form.Label>
         {formik.errors.confirmPassword && formik.touched.confirmPassword
           ? (<Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>)
           : (<Form.Control.Feedback type="invalid" tooltip>{t('errors.usernameRegistration')}</Form.Control.Feedback>)}
@@ -115,4 +116,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignupForm;

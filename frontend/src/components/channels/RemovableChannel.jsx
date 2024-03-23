@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
-// import filter from 'leo-profanity';
+import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 
 import { changeChannel } from '../../slices/channelSlice';
@@ -16,7 +16,7 @@ const RemovableChannel = ({ id, name, getClassName }) => {
     <Dropdown key={id} className="d-flex" as={ButtonGroup}>
       <button type="button" className={getClassName(id)} onClick={() => dispatch(changeChannel({ id, name }))}>
         <span className="me-1">#</span>
-        {name}
+        {filter.clean(name)}
       </button>
       <Dropdown.Toggle split variant={channelId === id ? 'secondary' : 'none'} id="dropdown-split-basic" />
       <Dropdown.Menu>

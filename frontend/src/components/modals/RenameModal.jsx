@@ -50,7 +50,6 @@ const RenameModal = ({ isOpen, close }) => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        // eslint-disable-next-line max-len
         await axios.patch(routes.idChannelPath(id), values, { headers: getAuthHeader() });
         socket.emit('renameChannel');
         notify();

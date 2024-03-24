@@ -1,7 +1,6 @@
+import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// eslint-disable-next-line object-curly-newline
-import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import routes from '../routes.js';
 import getAuthHeader from '../utilities/getAuthHeader.js';
 

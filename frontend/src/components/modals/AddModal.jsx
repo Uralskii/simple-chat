@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import routes from '../../routes.js';
+
 import getAuthHeader from '../../utilities/getAuthHeader.js';
 import { addChannel, changeChannel, channelsSelectors } from '../../slices/channelSlice.js';
 

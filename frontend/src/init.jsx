@@ -5,12 +5,12 @@ import { Provider as RollBar, ErrorBoundary } from '@rollbar/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import initI18next from './initI18next.js';
-import store from './slices/store.js';
-
 import AppRoutes from './AppRoutes.jsx';
 import Modal from './components/modals/Modal.jsx';
 import Toast from './components/Toast.jsx';
+
+import initI18next from './initI18next.js';
+import store from './slices/store.js';
 
 const rollbarConfig = {
   accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',

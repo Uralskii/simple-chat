@@ -1,8 +1,9 @@
-import axios from 'axios';
 import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 import routes from '../routes.js';
 import getAuthHeader from '../utilities/getAuthHeader.js';
+
 import { removeChannel } from './channelSlice.js';
 
 export const fetchMessages = createAsyncThunk(

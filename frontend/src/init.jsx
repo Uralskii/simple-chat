@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import AppRoutes from './AppRoutes.jsx';
 import Modal from './components/modals/Modal.jsx';
-import Toast from './components/Toast.jsx';
+import Toast from './components/toast/Toast.jsx';
 
 import initI18next from './initI18next.js';
 import store from './slices/store.js';

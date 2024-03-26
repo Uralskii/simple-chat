@@ -1,21 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import {
-  Modal,
-  Button,
-  Form,
-} from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
-import { updateChannel, channelsSelectors } from '../../slices/channelSlice';
+import notification from '../toast/index.js';
+
+import { updateChannel, channelsSelectors, changeChannel } from '../../slices/channelSlice';
 
 const socket = io();
 
@@ -23,16 +20,14 @@ const RenameModal = ({ isOpen, close }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const inputElem = useRef(null);
-  useEffect(() => {
-    inputElem.current.select();
-  }, []);
-
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
   const { id, name } = useSelector((state) => state.channels.activeChannel);
 
-  const notify = () => toast.success(t('toast.channelRename'));
+  const inputElem = useRef(null);
+  useEffect(() => {
+    inputElem.current.select();
+  }, []);
 
   const validationSchema = yup.object().shape({
     name: yup.string()
@@ -48,24 +43,23 @@ const RenameModal = ({ isOpen, close }) => {
       name,
     },
     onSubmit: async (values) => {
-      console.log(values);
       try {
         await axios.patch(routes.idChannelPath(id), values, { headers: getAuthHeader() });
         socket.emit('renameChannel');
-        notify();
+        notification.renameChannel(t('toast.channelRename'));
         close();
       } catch (err) {
         console.log(err);
+        notification.errorNotify(t('errors.network'));
       }
     },
   });
 
   useEffect(() => {
     socket.on('renameChannel', (payload) => {
-      console.log(payload);
       const channelId = payload.id;
       const newName = payload.name;
-
+      dispatch(changeChannel(payload));
       dispatch(updateChannel({ id: channelId, changes: { name: newName } }));
     });
   }, []);

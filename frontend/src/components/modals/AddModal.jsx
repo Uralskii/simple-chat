@@ -1,18 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import {
-  Modal,
-  Button,
-  Form,
-} from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
+
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import routes from '../../routes.js';
+import notification from '../toast/index.js';
 
 import getAuthHeader from '../../utilities/getAuthHeader.js';
 import { addChannel, changeChannel, channelsSelectors } from '../../slices/channelSlice.js';
@@ -32,8 +29,6 @@ const AddModal = ({ isOpen, close }) => {
     inputElem.current.focus();
   }, []);
 
-  const notify = () => toast.success(t('toast.channelAdd'));
-
   const validationSchema = yup.object().shape({
     name: yup.string()
       .required()
@@ -51,10 +46,11 @@ const AddModal = ({ isOpen, close }) => {
       try {
         await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
         socket.emit('newChannel');
-        notify();
+        notification.addChannel(t('toast.channelAdd'));
         close();
       } catch (err) {
         console.log(err);
+        notification.errorNotify(t('errors.network'));
       }
     },
   });
@@ -87,7 +83,7 @@ const AddModal = ({ isOpen, close }) => {
               ref={inputElem}
             />
             <label htmlFor="name">{t('modals.channelName')}</label>
-            <div className="invalid-tooltip">{t('errors.username')}</div>
+            <div className="invalid-tooltip">{formik.errors.name}</div>
           </Form.Floating>
           <div className="d-flex justify-content-end mt-3">
             <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>

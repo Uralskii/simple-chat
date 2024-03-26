@@ -44,6 +44,10 @@ const channelsSlice = createSlice({
       .addCase(fetchChannels.fulfilled, (state, action) => {
         channelsAdapter.setAll(state, action.payload);
         state.status = 'loaded';
+      })
+      .addCase(fetchChannels.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.error;
       });
   },
 });

@@ -2,27 +2,26 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import notification from '../toast/index.js';
-
 import getAuthHeader from '../../utilities/getAuthHeader.js';
+
 import { addChannel, changeChannel, channelsSelectors } from '../../slices/channelSlice.js';
 
 const socket = io();
 
 const AddModal = ({ isOpen, close }) => {
-  const { t } = useTranslation();
-
-  const dispatch = useDispatch();
-
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
+  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const inputElem = useRef(null);
   useEffect(() => {
@@ -46,7 +45,7 @@ const AddModal = ({ isOpen, close }) => {
       try {
         await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
         socket.emit('newChannel');
-        notification.addChannel(t('toast.channelAdd'));
+        notification.successToast(t('toast.channelAdd'));
         close();
       } catch (err) {
         console.log(err);
@@ -87,7 +86,7 @@ const AddModal = ({ isOpen, close }) => {
           </Form.Floating>
           <div className="d-flex justify-content-end mt-3">
             <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
-            <Button type="submit" className="btn-primary mt-2">{t('buttons.channels.send')}</Button>
+            <Button disabled={formik.isSubmitting} type="submit" className="btn-primary mt-2">{t('buttons.channels.send')}</Button>
           </div>
         </Form>
       </Modal.Body>

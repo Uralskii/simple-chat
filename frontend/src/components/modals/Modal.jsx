@@ -4,10 +4,9 @@ import { removeModal } from '../../slices/modalSlice';
 
 const Modal = () => {
   const { isOpen, type } = useSelector((state) => state.modal);
-
   const dispatch = useDispatch();
-  const handleClose = () => dispatch(removeModal());
 
+  const handleClose = () => dispatch(removeModal());
   const Component = getModal(type);
 
   return (

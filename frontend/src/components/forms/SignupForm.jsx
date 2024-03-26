@@ -1,24 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  Form,
-} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import axios from 'axios';
-import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { setCredentials } from '../../slices/userSlice';
+import axios from 'axios';
+import * as yup from 'yup';
+
 import routes from '../../routes';
+import { setCredentials } from '../../slices/userSlice';
 
 const SignupForm = () => {
   const [validated, setValidated] = useState(false);
-  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const inputUsernameElem = useRef(null);
   useEffect(() => {

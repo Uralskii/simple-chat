@@ -1,16 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
-import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
+
+import filter from 'leo-profanity';
 
 import { changeChannel } from '../../slices/channelSlice';
 import { setModalShow } from '../../slices/modalSlice';
 
 const RemovableChannel = ({ id, name, getClassName }) => {
   const channelId = useSelector((state) => state.channels.activeChannel.id);
-  const { t } = useTranslation();
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   return (
     <Dropdown key={id} className="d-flex" as={ButtonGroup}>

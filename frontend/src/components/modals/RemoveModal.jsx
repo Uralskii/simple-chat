@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Modal, FormGroup, Form, Button,
 } from 'react-bootstrap';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+
+import axios from 'axios';
 import { io } from 'socket.io-client';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../toast';
+
 import { removeChannel, changeChannel } from '../../slices/channelSlice';
 
 const socket = io();
@@ -17,6 +19,7 @@ const socket = io();
 const RemoveModal = ({ isOpen, close }) => {
   const channelId = useSelector((state) => state.channels.activeChannel.id);
   const dispatch = useDispatch();
+
   const { t } = useTranslation();
 
   const handleSubmit = (e) => {
@@ -24,7 +27,7 @@ const RemoveModal = ({ isOpen, close }) => {
     try {
       axios.delete(routes.idChannelPath(channelId), { headers: getAuthHeader() });
       socket.emit('removeChannel');
-      notification.removeChannel(t('toast.channelRemove'));
+      notification.successToast(t('toast.channelRemove'));
       close();
     } catch (err) {
       console.log(err);

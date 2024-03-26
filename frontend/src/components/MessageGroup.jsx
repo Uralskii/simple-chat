@@ -15,6 +15,7 @@ const getActiveChatMessages = (messages, id) => {
 const MessageGroup = () => {
   const { id, name } = useSelector((state) => state.channels.activeChannel);
   const allMessages = useSelector(messagesSelectors.selectAll);
+
   const { t } = useTranslation();
 
   const [channelMessages, messagesCount] = getActiveChatMessages(allMessages, id);

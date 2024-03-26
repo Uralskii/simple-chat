@@ -2,6 +2,7 @@ const ru = {
   translation: {
     buttons: {
       channels: {
+        add: '+',
         send: 'Отправить',
         back: 'Отменить',
         remove: 'Удалить',
@@ -9,7 +10,6 @@ const ru = {
         control: 'Управление каналом',
       },
       chat: {
-        add: '+',
         out: 'Выйти',
       },
     },

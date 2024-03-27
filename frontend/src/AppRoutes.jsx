@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { useSelector } from 'react-redux';
 import {
   BrowserRouter as Router, Routes, Route, Navigate,
 } from 'react-router-dom';
 
-import LoginPage from './pages/login/LoginPage';
-import SignupPage from './pages/signup/SignupPage';
-import ChatPage from './pages/chat/HomePage';
-import ErrorPage from './pages/404/ErrorPage';
 import Header from './components/Header';
+
+const LoginPage = lazy(() => import('./pages/login/LoginPage'));
+const SignupPage = lazy(() => import('./pages/signup/SignupPage'));
+const ChatPage = lazy(() => import('./pages/chat/HomePage'));
+const ErrorPage = lazy(() => import('./pages/404/ErrorPage'));
 
 const PrivateRoute = ({ children }) => {
   const { token } = useSelector((state) => state.user);
@@ -20,11 +21,10 @@ const PrivateRoute = ({ children }) => {
 
 const AppRoutes = () => (
   <Router>
-    <div className="d-flex flex-column h-100">
-      <Header />
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Header />}>
         <Route
-          path="/"
+          index
           element={(
             <PrivateRoute>
               <ChatPage />
@@ -34,8 +34,8 @@ const AppRoutes = () => (
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
   </Router>
 );
 

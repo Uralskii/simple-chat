@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -11,11 +11,12 @@ import routes from '../../routes.js';
 import notification from '../toast/index.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
 
-import { channelsSelectors } from '../../slices/channelSlice.js';
+import { changeChannel, channelsSelectors } from '../../slices/channelSlice.js';
 
 const AddModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
+  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -39,7 +40,8 @@ const AddModal = ({ isOpen, close }) => {
     },
     onSubmit: async ({ name }) => {
       try {
-        await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
+        const res = await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
+        dispatch(changeChannel(res.data));
         notification.successToast(t('toast.channelAdd'));
         close();
       } catch (err) {

@@ -10,9 +10,6 @@ start-backend:
 start:
 	make start-backend
 
-lint-frontend:
-	make -C frontend lint
-
 local-start:
 	make start-backend & make start-frontend
 

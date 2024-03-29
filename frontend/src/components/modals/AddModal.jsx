@@ -1,25 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
-import { io } from 'socket.io-client';
 import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import notification from '../toast/index.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
 
-import { addChannel, changeChannel, channelsSelectors } from '../../slices/channelSlice.js';
-
-const socket = io();
+import { channelsSelectors } from '../../slices/channelSlice.js';
 
 const AddModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
-  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -44,7 +40,6 @@ const AddModal = ({ isOpen, close }) => {
     onSubmit: async ({ name }) => {
       try {
         await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
-        socket.emit('newChannel');
         notification.successToast(t('toast.channelAdd'));
         close();
       } catch (err) {
@@ -53,13 +48,6 @@ const AddModal = ({ isOpen, close }) => {
       }
     },
   });
-
-  useEffect(() => {
-    socket.on('newChannel', (payload) => {
-      dispatch(addChannel(payload));
-      dispatch(changeChannel(payload));
-    });
-  }, []);
 
   return (
     <Modal centered show={isOpen}>

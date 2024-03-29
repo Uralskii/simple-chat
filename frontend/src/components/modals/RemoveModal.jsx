@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Modal, FormGroup, Form, Button,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
-import { io } from 'socket.io-client';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../toast';
 
-import { removeChannel, changeChannel } from '../../slices/channelSlice';
-
-const socket = io();
-
 const RemoveModal = ({ isOpen, close }) => {
   const channelId = useSelector((state) => state.channels.activeChannel.id);
-  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -26,7 +20,6 @@ const RemoveModal = ({ isOpen, close }) => {
     e.preventDefault();
     try {
       axios.delete(routes.idChannelPath(channelId), { headers: getAuthHeader() });
-      socket.emit('removeChannel');
       notification.successToast(t('toast.channelRemove'));
       close();
     } catch (err) {
@@ -34,13 +27,6 @@ const RemoveModal = ({ isOpen, close }) => {
       notification.errorNotify(t('errors.network'));
     }
   };
-
-  useEffect(() => {
-    socket.on('removeChannel', ({ id }) => {
-      dispatch(removeChannel(id));
-      dispatch(changeChannel({ id: '1', name: 'general' }));
-    });
-  }, []);
 
   return (
     <Modal centered show={isOpen}>

@@ -1,27 +1,22 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
-import { io } from 'socket.io-client';
 import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import getAuthHeader from '../../utilities/getAuthHeader.js';
 import notification from '../toast/index.js';
 
-import { updateChannel, channelsSelectors, changeChannel } from '../../slices/channelSlice';
-
-const socket = io();
+import { channelsSelectors } from '../../slices/channelSlice';
 
 const RenameModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
   const { id, name } = useSelector((state) => state.channels.activeChannel);
-
-  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -46,7 +41,6 @@ const RenameModal = ({ isOpen, close }) => {
     onSubmit: async (values) => {
       try {
         await axios.patch(routes.idChannelPath(id), values, { headers: getAuthHeader() });
-        socket.emit('renameChannel');
         notification.successToast(t('toast.channelRename'));
         close();
       } catch (err) {
@@ -55,13 +49,6 @@ const RenameModal = ({ isOpen, close }) => {
       }
     },
   });
-
-  useEffect(() => {
-    socket.on('renameChannel', (payload) => {
-      dispatch(changeChannel(payload));
-      dispatch(updateChannel({ id: payload.id, changes: { name: payload.name } }));
-    });
-  }, []);
 
   return (
     <Modal centered show={isOpen}>

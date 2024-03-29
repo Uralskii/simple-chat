@@ -2,11 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { changeChannel } from '../../slices/channelSlice';
 
-const DefaultChannel = ({ id, name, getClassName }) => {
+// eslint-disable-next-line object-curly-newline
+const DefaultChannel = ({ key, id, name, getClassName }) => {
   const dispatch = useDispatch();
 
   return (
-    <li key={id} className="nav-item w-100">
+    <li key={key} className="nav-item w-100">
       <button
         type="button"
         id={id}

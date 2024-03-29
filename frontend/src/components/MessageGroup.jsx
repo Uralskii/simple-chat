@@ -25,7 +25,8 @@ const MessageGroup = () => {
       <div className="bg-light mb-4 p-3 shadow-sm small">
         <p className="m-0">
           <b>
-            #{filter.clean(name)}
+            #
+            {filter.clean(name)}
           </b>
         </p>
         <span className="text-muted">{t('messages.counter.count', { count: messagesCount })}</span>

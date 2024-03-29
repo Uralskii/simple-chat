@@ -12,6 +12,8 @@ import Toast from './components/toast/Toast.jsx';
 
 import initI18next from './initI18next.js';
 import store from './slices/store.js';
+
+import { addMessage } from './slices/messageSlice';
 import {
   removeChannel, changeChannel, addChannel, updateChannel,
 } from './slices/channelSlice.js';
@@ -38,6 +40,10 @@ const init = async () => {
   socket.on('renameChannel', (payload) => {
     store.dispatch(changeChannel(payload));
     store.dispatch(updateChannel({ id: payload.id, changes: { name: payload.name } }));
+  });
+
+  socket.on('newMessage', (payload) => {
+    store.dispatch(addMessage(payload));
   });
 
   return (

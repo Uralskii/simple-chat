@@ -1,25 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
 import axios from 'axios';
-import { io } from 'socket.io-client';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
 
-import { addMessage } from '../../slices/messageSlice';
 import notification from '../toast';
-
-const socket = io();
 
 const SendMessageForm = () => {
   const [textMessage, setInputMessage] = useState('');
   const { username } = useSelector((state) => state.user);
   const { id } = useSelector((state) => state.channels.activeChannel);
 
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const inputElement = useRef(null);
@@ -34,19 +28,12 @@ const SendMessageForm = () => {
 
     try {
       await axios.post(routes.messagesPath(), newMessage, { headers: getAuthHeader() });
-      socket.emit('newMessage');
     } catch (err) {
       notification.errorNotify(t('errors.network'));
       console.log(err);
     }
     setInputMessage('');
   };
-
-  useEffect(() => {
-    socket.on('newMessage', (payload) => {
-      dispatch(addMessage(payload));
-    });
-  }, []);
 
   return (
     <div className="mt-auto px-5 py-3">

@@ -35,8 +35,8 @@ const ChannelsGroup = () => {
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map(({ id, name, removable }) => (
           removable
-            ? <RemovableChannel key={id} id={id} name={name} getClassName={getClassName} />
-            : <DefaultChannel key={id} name={name} getClassName={getClassName} />
+            ? <RemovableChannel id={id} name={name} getClassName={getClassName} />
+            : <DefaultChannel id={id} name={name} getClassName={getClassName} />
         ))}
       </ul>
     </Col>

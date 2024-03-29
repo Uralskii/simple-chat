@@ -31,8 +31,6 @@ rules:
   arrow-body-style: ["error", "as-needed"]
   no-param-reassign: ['error', {
       props: true,
-      ignorePropertyModificationsFor: [
-        'state',
-      ]
+      ignorePropertyModificationsFor: [ 'state', ]
     }]
   react/jsx-one-expression-per-line: 0

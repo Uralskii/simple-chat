@@ -8,8 +8,7 @@ import filter from 'leo-profanity';
 import { changeChannel } from '../../slices/channelSlice';
 import { setModalShow } from '../../slices/modalSlice';
 
-// eslint-disable-next-line object-curly-newline
-const RemovableChannel = ({ key, id, name, getClassName }) => {
+const RemovableChannel = ({ id, name, getClassName }) => {
   const channelId = useSelector((state) => state.channels.activeChannel.id);
   const dispatch = useDispatch();
 
@@ -20,7 +19,7 @@ const RemovableChannel = ({ key, id, name, getClassName }) => {
   };
 
   return (
-    <Dropdown key={key} className="d-flex" as={ButtonGroup}>
+    <Dropdown key={id} className="d-flex" as={ButtonGroup}>
       <button type="button" className={getClassName(id)} onClick={() => dispatch(changeChannel({ id, name }))}>
         <span className="me-1">#</span>
         {filter.clean(name)}

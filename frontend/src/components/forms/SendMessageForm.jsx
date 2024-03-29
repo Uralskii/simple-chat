@@ -46,7 +46,7 @@ const SendMessageForm = () => {
     socket.on('newMessage', (payload) => {
       dispatch(addMessage(payload));
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="mt-auto px-5 py-3">

@@ -4,4 +4,4 @@ const resources = {
   ru,
 };
 
-export default resources
+export default resources;

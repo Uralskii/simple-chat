@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -15,6 +15,8 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation()
+  const { from } = location.state
 
   const { t } = useTranslation();
 
@@ -35,8 +37,7 @@ const LoginForm = () => {
         const res = await axios.post(routes.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(res.data));
         dispatch(setCredentials(res.data));
-        setIsInvalid(false);
-        navigate('/');
+        navigate(from);
       } catch (err) {
         setIsInvalid(true);
       }

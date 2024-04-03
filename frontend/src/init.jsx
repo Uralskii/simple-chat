@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next'
 import { Provider as RollBar, ErrorBoundary } from '@rollbar/react';
 import { io } from 'socket.io-client';
 
@@ -23,10 +24,10 @@ const rollbarConfig = {
   environment: 'production',
 };
 
-const socket = io();
-
 const init = async () => {
   await initI18next();
+
+  const socket = io();
 
   socket.on('newChannel', (payload) => {
     store.dispatch(addChannel(payload));
@@ -34,7 +35,7 @@ const init = async () => {
 
   socket.on('removeChannel', ({ id }) => {
     store.dispatch(removeChannel(id));
-    store.dispatch(changeChannel({ id: '1', name: 'general' }));
+    store.dispatch(changeChannel({ id: '1' }));
   });
 
   socket.on('renameChannel', (payload) => {
@@ -50,9 +51,11 @@ const init = async () => {
     <RollBar config={rollbarConfig}>
       <ErrorBoundary>
         <Provider store={store}>
-          <AppRoutes />
-          <Toast />
-          <Modal />
+          <I18nextProvider>
+            <AppRoutes />
+            <Toast />
+            <Modal />
+          </I18nextProvider>
         </Provider>
       </ErrorBoundary>
     </RollBar>

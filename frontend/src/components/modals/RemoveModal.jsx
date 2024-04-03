@@ -12,7 +12,7 @@ import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../toast';
 
 const RemoveModal = ({ isOpen, close }) => {
-  const channelId = useSelector((state) => state.channels.activeChannel.id);
+  const channelId = useSelector((state) => state.channels.activeChannelId);
 
   const { t } = useTranslation();
 

@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  BrowserRouter as Router, Routes, Route, Navigate,
+  BrowserRouter as Router, Routes, Route, Navigate, useLocation,
 } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -13,9 +13,10 @@ const ErrorPage = lazy(() => import('./pages/404/ErrorPage'));
 
 const PrivateRoute = ({ children }) => {
   const { token } = useSelector((state) => state.user);
+  const location = useLocation()
 
   return (
-    token ? children : <Navigate to="/login" />
+    token ? children : <Navigate to="/login" state={{ from: location }}/>
   );
 };
 

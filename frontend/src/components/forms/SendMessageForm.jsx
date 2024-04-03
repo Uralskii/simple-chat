@@ -2,7 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+
 import axios from 'axios';
+import filter from 'leo-profanity';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
@@ -12,19 +14,24 @@ import notification from '../toast';
 const SendMessageForm = () => {
   const [textMessage, setInputMessage] = useState('');
   const { username } = useSelector((state) => state.user);
-  const { id } = useSelector((state) => state.channels.activeChannel);
+  const activeChannelId = useSelector((state) => state.channels.activeChannelId);
 
   const { t } = useTranslation();
 
   const inputElement = useRef(null);
   useEffect(() => {
     inputElement.current.focus();
-  }, [id]);
+  }, [activeChannelId]);
 
   const handleChangeInputMessage = (e) => setInputMessage(e.target.value);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newMessage = { body: textMessage, channelId: id, username };
+  
+    const newMessage = { 
+      body: filter.clean(textMessage), 
+      channelId: activeChannelId, 
+      username 
+    };
 
     try {
       await axios.post(routes.messagesPath(), newMessage, { headers: getAuthHeader() });

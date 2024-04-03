@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
+import filter from 'leo-profanity';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -39,8 +40,11 @@ const AddModal = ({ isOpen, close }) => {
       name: '',
     },
     onSubmit: async ({ name }) => {
+
+      const filteredChannelName = filter.clean(name);
+
       try {
-        const res = await axios.post(routes.channelsPath(), { name }, { headers: getAuthHeader() });
+        const res = await axios.post(routes.channelsPath(), { name: filteredChannelName }, { headers: getAuthHeader() });
         dispatch(changeChannel(res.data));
         notification.successToast(t('toast.channelAdd'));
         close();

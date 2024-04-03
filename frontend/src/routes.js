@@ -1,9 +1,11 @@
+const apiPath = '/api/v1'
+
 const routes = {
-  channelsPath: () => '/api/v1/channels',
-  messagesPath: () => '/api/v1/messages',
-  idChannelPath: (id) => `/api/v1/channels/${id}`,
-  loginPath: () => 'api/v1/login',
-  signupPath: () => 'api/v1/signup',
+  channelsPath: () => [apiPath, 'channels'].join('/'),
+  messagesPath: () => [apiPath, 'messages'].join('/'),
+  idChannelPath: (id) => [apiPath, 'channels', id].join('/'),
+  loginPath: () => [apiPath, 'login'].join('/'),
+  signupPath: () => [apiPath, 'signup'].join('/'),
 };
 
 export default routes;

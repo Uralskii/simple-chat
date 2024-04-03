@@ -16,10 +16,7 @@ export const fetchChannels = createAsyncThunk(
 const channelsAdapter = createEntityAdapter();
 
 const initialState = channelsAdapter.getInitialState({
-  activeChannel: {
-    id: '1',
-    name: 'general',
-  },
+  activeChannelId: '1',
   status: 'idle',
   error: null,
 });
@@ -32,9 +29,8 @@ const channelsSlice = createSlice({
     removeChannel: channelsAdapter.removeOne,
     updateChannel: channelsAdapter.updateOne,
     changeChannel: (state, action) => {
-      const { name, id } = action.payload;
-      state.activeChannel.id = id;
-      state.activeChannel.name = name;
+      const { id } = action.payload;
+      state.activeChannelId = id;
     },
   },
   extraReducers: (builder) => {

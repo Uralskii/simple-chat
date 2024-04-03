@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import filter from 'leo-profanity';
 
 import { messagesSelectors } from '../slices/messageSlice';
+import { channelsSelectors } from '../slices/channelSlice';
 
 const getActiveChatMessages = (messages, id) => {
   const channelMessages = messages.filter((m) => m.channelId === id);
@@ -13,12 +13,13 @@ const getActiveChatMessages = (messages, id) => {
 };
 
 const MessageGroup = () => {
-  const { id, name } = useSelector((state) => state.channels.activeChannel);
   const allMessages = useSelector(messagesSelectors.selectAll);
-
+  const activeChannelId = useSelector((state) => state.channels.activeChannelId);
+  const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId))
+  console.log(name);
   const { t } = useTranslation();
 
-  const [channelMessages, messagesCount] = getActiveChatMessages(allMessages, id);
+  const [channelMessages, messagesCount] = getActiveChatMessages(allMessages, activeChannelId);
 
   return (
     <>
@@ -26,7 +27,6 @@ const MessageGroup = () => {
         <p className="m-0">
           <b>
             #
-            {filter.clean(name)}
           </b>
         </p>
         <span className="text-muted">{t('messages.counter.count', { count: messagesCount })}</span>
@@ -36,7 +36,7 @@ const MessageGroup = () => {
           <div key={message.id} className="text-break mb-2">
             <b>{message.username}</b>
             :
-            {filter.clean(message.body)}
+            {message.body}
           </div>
         ))}
       </div>

@@ -1,21 +1,22 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { changeChannel } from '../../slices/channelSlice';
+import { useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
 
-const DefaultChannel = ({ id, name, getClassName }) => {
-  const dispatch = useDispatch();
+const DefaultChannel = ({ id, name, isCurrent, changeChannel }) => {
+  const channelId = useSelector((state) => state.channels.activeChannelId);
 
   return (
     <li key={id} className="nav-item w-100">
-      <button
+      <Button
         type="button"
         id={id}
-        className={getClassName(id)}
-        onClick={() => dispatch(changeChannel({ id, name }))}
+        className="w-100 rounded-0 text-start text-truncate btn" 
+        variant={isCurrent(channelId, id)} 
+        onClick={changeChannel(id, name)}
       >
         <span className="me-1">#</span>
         {name}
-      </button>
+      </Button>
     </li>
   );
 };

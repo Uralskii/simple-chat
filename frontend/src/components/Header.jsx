@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Container, Button, Navbar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
@@ -10,10 +10,11 @@ import Spinner from './Spinner.jsx';
 const Header = () => {
   const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  
   const { t } = useTranslation();
 
-  const handeleRemoveUser = () => {
+  const handeleRemoveUser = () => () => {
     dispatch(removeCredentials());
     localStorage.removeItem('userId');
   };
@@ -24,7 +25,7 @@ const Header = () => {
         <Container>
           <Navbar.Brand as={Link} to="/">{t('text.chatTitle')}</Navbar.Brand>
           {token
-            ? <Button as={Link} onClick={() => handeleRemoveUser()} to="/login">{t('buttons.chat.out')}</Button>
+            ? <Button as={Link} onClick={handeleRemoveUser()} to="/login" state={{ from: location }}>{t('buttons.chat.out')}</Button>
             : null}
         </Container>
       </Navbar>

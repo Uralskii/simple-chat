@@ -16,7 +16,8 @@ import { channelsSelectors } from '../../slices/channelSlice';
 const RenameModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
-  const { id, name } = useSelector((state) => state.channels.activeChannel);
+  const id = useSelector((state) => state.channels.activeChannelId);
+  const { name } = useSelector(state => channelsSelectors.selectById(state, id))
 
   const { t } = useTranslation();
 

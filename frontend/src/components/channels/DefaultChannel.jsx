@@ -10,7 +10,7 @@ const DefaultChannel = ({ id, name, isCurrent, changeChannel }) => {
       <Button
         type="button"
         id={id}
-        className="w-100 rounded-0 text-start text-truncate btn" 
+        className="w-100 rounded-0 text-start text-truncate" 
         variant={isCurrent(channelId, id)} 
         onClick={changeChannel(id, name)}
       >

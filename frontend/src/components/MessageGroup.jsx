@@ -32,13 +32,15 @@ const MessageGroup = () => {
         <span className="text-muted">{t('messages.counter.count', { count: messagesCount })}</span>
       </div>
       <div id="message-box" className="chat-messages overflow-auto px-5">
-        {channelMessages.map((message) => (
-          <div key={message.id} className="text-break mb-2">
-            <b>{message.username}</b>
-            :
-            {message.body}
+        {allMessages
+          .filter(message => message.channelId === activeChannelId)
+          .map(message => (
+            <div key={message.id} className="text-break mb-2">
+              <b>{message.username}</b>
+              :
+              {message.body}
           </div>
-        ))}
+          ))}
       </div>
     </>
   );

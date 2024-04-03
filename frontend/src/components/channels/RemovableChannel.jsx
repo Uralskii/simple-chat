@@ -19,7 +19,7 @@ const RemovableChannel = ({ id, name, isCurrent, changeChannel }) => {
     <Dropdown key={id} className="d-flex" as={ButtonGroup}>
       <Button 
         type="button" 
-        className="w-100 rounded-0 text-start text-truncate btn" 
+        className="w-100 rounded-0 text-start text-truncate" 
         onClick={changeChannel(id, name)}
         variant={isCurrent(channelId, id)} 
       >

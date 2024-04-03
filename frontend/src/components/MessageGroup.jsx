@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { messagesSelectors } from '../slices/messageSlice';
-import { channelsSelectors } from '../slices/channelSlice';
+// import { channelsSelectors } from '../slices/channelSlice';
 
 const getActiveChatMessages = (messages, id) => {
   const channelMessages = messages.filter((m) => m.channelId === id);
@@ -15,8 +15,8 @@ const getActiveChatMessages = (messages, id) => {
 const MessageGroup = () => {
   const allMessages = useSelector(messagesSelectors.selectAll);
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
-  const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId))
-  console.log(name);
+  // const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId))
+
   const { t } = useTranslation();
 
   const [channelMessages, messagesCount] = getActiveChatMessages(allMessages, activeChannelId);

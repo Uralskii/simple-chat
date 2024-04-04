@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { I18nextProvider } from 'react-i18next'
+import { I18nextProvider } from 'react-i18next';
 import { Provider as RollBar, ErrorBoundary } from '@rollbar/react';
 import { io } from 'socket.io-client';
 

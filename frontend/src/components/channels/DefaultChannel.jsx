@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
+// eslint-disable-next-line object-curly-newline
 const DefaultChannel = ({ id, name, isCurrent, changeChannel }) => {
   const channelId = useSelector((state) => state.channels.activeChannelId);
 
@@ -10,8 +11,8 @@ const DefaultChannel = ({ id, name, isCurrent, changeChannel }) => {
       <Button
         type="button"
         id={id}
-        className="w-100 rounded-0 text-start text-truncate" 
-        variant={isCurrent(channelId, id)} 
+        className="w-100 rounded-0 text-start text-truncate"
+        variant={isCurrent(channelId, id)}
         onClick={changeChannel(id, name)}
       >
         <span className="me-1">#</span>

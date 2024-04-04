@@ -13,10 +13,10 @@ const ErrorPage = lazy(() => import('./pages/404/ErrorPage'));
 
 const PrivateRoute = ({ children }) => {
   const { token } = useSelector((state) => state.user);
-  const location = useLocation()
+  const location = useLocation();
 
   return (
-    token ? children : <Navigate to="/login" state={{ from: location }}/>
+    token ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
 

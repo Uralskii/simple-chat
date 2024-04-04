@@ -15,8 +15,8 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation()
-  const { from } = location.state
+  const location = useLocation();
+  const { from } = location.state;
 
   const { t } = useTranslation();
 

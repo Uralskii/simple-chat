@@ -11,7 +11,7 @@ const Header = () => {
   const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const location = useLocation();
-  
+
   const { t } = useTranslation();
 
   const handeleRemoveUser = () => () => {

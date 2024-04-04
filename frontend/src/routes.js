@@ -1,4 +1,4 @@
-const apiPath = '/api/v1'
+const apiPath = '/api/v1';
 
 const routes = {
   channelsPath: () => [apiPath, 'channels'].join('/'),

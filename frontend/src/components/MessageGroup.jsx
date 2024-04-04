@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { messagesSelectors } from '../slices/messageSlice';
-// import { channelsSelectors } from '../slices/channelSlice';
+import { channelsSelectors } from '../slices/channelSlice';
 
 const getActiveChatMessages = (messages, id) => {
   const channelMessages = messages.filter((m) => m.channelId === id);
@@ -15,10 +15,12 @@ const getActiveChatMessages = (messages, id) => {
 const MessageGroup = () => {
   const allMessages = useSelector(messagesSelectors.selectAll);
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
-  // const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId))
-
+  const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
+  console.log(name);
+  console.log(useSelector(channelsSelectors.selectAll));
   const { t } = useTranslation();
 
+  // eslint-disable-next-line no-unused-vars
   const [channelMessages, messagesCount] = getActiveChatMessages(allMessages, activeChannelId);
 
   return (
@@ -33,13 +35,13 @@ const MessageGroup = () => {
       </div>
       <div id="message-box" className="chat-messages overflow-auto px-5">
         {allMessages
-          .filter(message => message.channelId === activeChannelId)
-          .map(message => (
+          .filter((message) => message.channelId === activeChannelId)
+          .map((message) => (
             <div key={message.id} className="text-break mb-2">
               <b>{message.username}</b>
               :
               {message.body}
-          </div>
+            </div>
           ))}
       </div>
     </>

@@ -17,7 +17,7 @@ const RenameModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
   const id = useSelector((state) => state.channels.activeChannelId);
-  const { name } = useSelector(state => channelsSelectors.selectById(state, id))
+  const { name } = useSelector((state) => channelsSelectors.selectById(state, id));
 
   const { t } = useTranslation();
 

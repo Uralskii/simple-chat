@@ -40,10 +40,10 @@ const AddModal = ({ isOpen, close }) => {
       name: '',
     },
     onSubmit: async ({ name }) => {
-
       const filteredChannelName = filter.clean(name);
 
       try {
+        // eslint-disable-next-line max-len
         const res = await axios.post(routes.channelsPath(), { name: filteredChannelName }, { headers: getAuthHeader() });
         dispatch(changeChannel(res.data));
         notification.successToast(t('toast.channelAdd'));

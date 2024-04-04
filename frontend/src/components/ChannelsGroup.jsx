@@ -6,9 +6,8 @@ import { useTranslation } from 'react-i18next';
 import DefaultChannel from './channels/DefaultChannel';
 import RemovableChannel from './channels/RemovableChannel';
 
-import { channelsSelectors } from '../slices/channelSlice';
+import { channelsSelectors, changeChannel } from '../slices/channelSlice';
 import { setModalShow } from '../slices/modalSlice';
-import { changeChannel } from '../slices/channelSlice';
 
 import image from '../assets/button.svg';
 
@@ -19,14 +18,14 @@ const ChannelsGroup = () => {
   const { t } = useTranslation();
 
   const handleAddChannel = (type) => () => {
-    dispatch(setModalShow({ type }))
-  }
+    dispatch(setModalShow({ type }));
+  };
 
   const handleChangeChannel = (id, name) => () => {
-    dispatch(changeChannel({ id, name }))
-  }
+    dispatch(changeChannel({ id, name }));
+  };
 
-  const isCurrent = (activeId, id) => activeId === id ? 'secondary' : 'none';
+  const isCurrent = (activeId, id) => (activeId === id ? 'secondary' : 'none');
 
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -40,20 +39,24 @@ const ChannelsGroup = () => {
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map(({ id, name, removable }) => (
           removable
-            ? <RemovableChannel 
+            ? (
+              <RemovableChannel
                 key={id}
                 id={id}
                 name={name}
                 isCurrent={isCurrent}
                 changeChannel={handleChangeChannel}
               />
-            : <DefaultChannel 
-                key={id} 
-                id={id} 
-                name={name} 
-                isCurrent={isCurrent} 
+            )
+            : (
+              <DefaultChannel
+                key={id}
+                id={id}
+                name={name}
+                isCurrent={isCurrent}
                 changeChannel={handleChangeChannel}
               />
+            )
         ))}
       </ul>
     </Col>

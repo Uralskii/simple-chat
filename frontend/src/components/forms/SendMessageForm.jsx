@@ -26,11 +26,11 @@ const SendMessageForm = () => {
   const handleChangeInputMessage = (e) => setInputMessage(e.target.value);
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const newMessage = { 
-      body: filter.clean(textMessage), 
-      channelId: activeChannelId, 
-      username 
+
+    const newMessage = {
+      body: filter.clean(textMessage),
+      channelId: activeChannelId,
+      username,
     };
 
     try {

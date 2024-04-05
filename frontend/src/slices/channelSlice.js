@@ -17,7 +17,7 @@ const channelsAdapter = createEntityAdapter();
 
 const initialState = channelsAdapter.getInitialState({
   activeChannelId: '1',
-  status: 'pending',
+  status: 'idle',
   error: null,
 });
 

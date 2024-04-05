@@ -22,7 +22,7 @@ const ChatPage = () => {
     dispatch(fetchMessages());
   }, [dispatch]);
 
-  if (status === 'pending') {
+  if (status !== 'loaded') {
     return (
       <Spinner />
     );

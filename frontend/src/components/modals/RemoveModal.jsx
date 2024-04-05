@@ -17,14 +17,13 @@ const RemoveModal = ({ isOpen, close }) => {
 
   const { t } = useTranslation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      axios.delete(routes.idChannelPath(channelId), { headers: getAuthHeader() });
+      await axios.delete(routes.idChannelPath(channelId), { headers: getAuthHeader() });
       notification.successToast(t('toast.channelRemove'));
       close();
     } catch (err) {
-      console.log(err);
       notification.errorNotify(t('errors.network'));
     }
   };

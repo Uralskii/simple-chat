@@ -4,15 +4,16 @@ import {
   Modal, FormGroup, Form, Button,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
 import axios from 'axios';
+
+import { getActiveChannelId } from '../../slices/selectors';
 
 import routes from '../../routes';
 import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../toast';
 
 const RemoveModal = ({ isOpen, close }) => {
-  const channelId = useSelector((state) => state.channels.activeChannelId);
+  const channelId = useSelector(getActiveChannelId);
 
   const { t } = useTranslation();
 

@@ -12,6 +12,7 @@ import { setCredentials } from '../../slices/userSlice';
 
 const LoginForm = () => {
   const [isInvalid, setIsInvalid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,6 +41,14 @@ const LoginForm = () => {
         navigate(from);
       } catch (err) {
         setIsInvalid(true);
+        const responseStatus = err.response.status;
+
+        if (responseStatus === 401) {
+          setErrorMessage(t('errors.login'));
+        }
+        if (responseStatus === 409) {
+          setErrorMessage(t('errors.network'));
+        }
       }
     },
   });
@@ -76,7 +85,7 @@ const LoginForm = () => {
           isInvalid={isInvalid}
         />
         <label htmlFor="password">{t('loginForm.password')}</label>
-        <div className="invalid-tooltip">{t('errors.login')}</div>
+        <div className="invalid-tooltip">{errorMessage}</div>
       </Form.Floating>
 
       <Button disabled={formik.isSubmitting} variant="outline-primary" type="submit" className="w-100 mb-3">{t('loginForm.title')}</Button>

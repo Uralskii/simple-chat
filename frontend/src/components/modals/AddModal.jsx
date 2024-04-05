@@ -4,9 +4,9 @@ import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
+import * as yup from 'yup';
 import filter from 'leo-profanity';
 import axios from 'axios';
-import * as yup from 'yup';
 
 import routes from '../../routes.js';
 import notification from '../toast/index.js';

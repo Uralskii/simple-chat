@@ -9,7 +9,7 @@ import { getActiveChannelId, getChannelMessages } from '../slices/selectors';
 const MessageGroup = () => {
   const allChatMessages = useSelector(messagesSelectors.selectAll);
   const activeChannelId = useSelector(getActiveChannelId);
-  const { name } = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
+  const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
 
   const channelMessages = getChannelMessages(activeChannelId, allChatMessages);
   const count = channelMessages.length;
@@ -22,7 +22,7 @@ const MessageGroup = () => {
         <p className="m-0">
           <b>
             #
-            {name}
+            {name?.name}
           </b>
         </p>
         <span className="text-muted">{t('messages.counter.count', { count })}</span>

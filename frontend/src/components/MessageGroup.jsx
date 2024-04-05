@@ -4,24 +4,17 @@ import { useTranslation } from 'react-i18next';
 
 import { messagesSelectors } from '../slices/messageSlice';
 import { channelsSelectors } from '../slices/channelSlice';
-
-const getActiveChatMessages = (messages, id) => {
-  const channelMessages = messages.filter((m) => m.channelId === id);
-  const messagesCount = channelMessages.length;
-
-  return [channelMessages, messagesCount];
-};
+import { getActiveChannelId, getChannelMessages } from '../slices/selectors';
 
 const MessageGroup = () => {
-  const allMessages = useSelector(messagesSelectors.selectAll);
-  const activeChannelId = useSelector((state) => state.channels.activeChannelId);
-  const name = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
-  console.log(name);
-  console.log(useSelector(channelsSelectors.selectAll));
-  const { t } = useTranslation();
+  const allChatMessages = useSelector(messagesSelectors.selectAll);
+  const activeChannelId = useSelector(getActiveChannelId);
+  const { name } = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
 
-  // eslint-disable-next-line no-unused-vars
-  const [channelMessages, messagesCount] = getActiveChatMessages(allMessages, activeChannelId);
+  const channelMessages = getChannelMessages(activeChannelId, allChatMessages);
+  const count = channelMessages.length;
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -29,13 +22,13 @@ const MessageGroup = () => {
         <p className="m-0">
           <b>
             #
+            {name}
           </b>
         </p>
-        <span className="text-muted">{t('messages.counter.count', { count: messagesCount })}</span>
+        <span className="text-muted">{t('messages.counter.count', { count })}</span>
       </div>
       <div id="message-box" className="chat-messages overflow-auto px-5">
-        {allMessages
-          .filter((message) => message.channelId === activeChannelId)
+        {channelMessages
           .map((message) => (
             <div key={message.id} className="text-break mb-2">
               <b>{message.username}</b>

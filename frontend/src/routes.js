@@ -6,6 +6,9 @@ const routes = {
   idChannelPath: (id) => [apiPath, 'channels', id].join('/'),
   loginPath: () => [apiPath, 'login'].join('/'),
   signupPath: () => [apiPath, 'signup'].join('/'),
+  chatPage: () => '/',
+  loginPage: () => '/login',
+  signupPage: () => '/signup',
 };
 
 export default routes;

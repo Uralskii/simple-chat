@@ -6,6 +6,8 @@ extends:
   - plugin:react/recommended
   - airbnb
   - plugin:react-hooks/recommended
+  - plugin:functional/recommended
+  - plugin:functional/disable-type-checked
 
 overrides: []
 
@@ -16,6 +18,7 @@ parserOptions:
 plugins:
   - react
   - react-hooks
+  - functional
 
 rules: 
   import/extensions: 0

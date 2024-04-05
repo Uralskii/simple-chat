@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Header from './components/Header';
+import routes from './routes';
 
 const LoginPage = lazy(() => import('./pages/login/LoginPage'));
 const SignupPage = lazy(() => import('./pages/signup/SignupPage'));
@@ -16,14 +17,14 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   return (
-    token ? children : <Navigate to="/login" state={{ from: location }} />
+    token ? children : <Navigate to={routes.loginPage()} state={{ from: location }} />
   );
 };
 
 const AppRoutes = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Header />}>
+      <Route path={routes.chatPage()} element={<Header />}>
         <Route
           index
           element={(
@@ -32,8 +33,8 @@ const AppRoutes = () => (
             </PrivateRoute>
           )}
         />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path={routes.loginPage()} element={<LoginPage />} />
+        <Route path={routes.signupPage()} element={<SignupPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>

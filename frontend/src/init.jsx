@@ -13,7 +13,6 @@ import Toast from './components/toast/Toast.jsx';
 
 import initI18next from './initI18next.js';
 import store from './slices/store.js';
-
 import { addMessage } from './slices/messageSlice';
 import {
   removeChannel, changeChannel, addChannel, updateChannel,
@@ -25,7 +24,7 @@ const rollbarConfig = {
 };
 
 const init = async () => {
-  await initI18next();
+  const i18Instance = await initI18next();
 
   const socket = io();
 
@@ -51,7 +50,7 @@ const init = async () => {
     <RollBar config={rollbarConfig}>
       <ErrorBoundary>
         <Provider store={store}>
-          <I18nextProvider>
+          <I18nextProvider i18n={i18Instance}>
             <AppRoutes />
             <Toast />
             <Modal />

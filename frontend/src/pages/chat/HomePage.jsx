@@ -11,7 +11,7 @@ import { fetchMessages } from '../../slices/messageSlice';
 import { fetchChannels } from '../../slices/channelSlice';
 
 const ChatPage = () => {
-  const status = useSelector((state) => state.channels.status);
+  const { status } = useSelector((state) => state.channels);
   const dispatch = useDispatch();
 
   useEffect(() => {

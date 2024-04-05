@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import { messagesSelectors } from '../slices/messageSlice';
 import { channelsSelectors } from '../slices/channelSlice';
-import { getChannelMessages } from '../slices/selectors';
+import { getActiveChannelId, getChannelMessages } from '../slices/selectors';
 
 const MessageGroup = () => {
   const allChatMessages = useSelector(messagesSelectors.selectAll);
-  const activeChannelId = useSelector((state) => state.channels.activeChannelId);
+  const activeChannelId = useSelector(getActiveChannelId);
   const { name } = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
 
   const channelMessages = getChannelMessages(activeChannelId, allChatMessages);

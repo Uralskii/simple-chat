@@ -25,8 +25,6 @@ const ChannelsGroup = () => {
     dispatch(changeChannel({ id, name }));
   };
 
-  const isCurrent = (activeId, id) => (activeId === id ? 'secondary' : 'none');
-
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
@@ -39,24 +37,8 @@ const ChannelsGroup = () => {
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map(({ id, name, removable }) => (
           removable
-            ? (
-              <RemovableChannel
-                key={id}
-                id={id}
-                name={name}
-                isCurrent={isCurrent}
-                changeChannel={handleChangeChannel}
-              />
-            )
-            : (
-              <DefaultChannel
-                key={id}
-                id={id}
-                name={name}
-                isCurrent={isCurrent}
-                changeChannel={handleChangeChannel}
-              />
-            )
+            ? <RemovableChannel key={id} id={id} name={name} changeChannel={handleChangeChannel} />
+            : <DefaultChannel key={id} id={id} name={name} changeChannel={handleChangeChannel} />
         ))}
       </ul>
     </Col>

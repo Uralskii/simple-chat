@@ -22,7 +22,7 @@ const MessageGroup = () => {
         <p className="m-0">
           <b>
             #
-            {name?.name}
+            {name.name}
           </b>
         </p>
         <span className="text-muted">{t('messages.counter.count', { count })}</span>

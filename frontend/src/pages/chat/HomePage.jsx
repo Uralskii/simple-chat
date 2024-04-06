@@ -16,9 +16,6 @@ const ChatPage = () => {
 
   useEffect(() => {
     dispatch(fetchChannels());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(fetchMessages());
   }, [dispatch]);
 

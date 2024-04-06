@@ -17,6 +17,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const { from } = location.state;
 
   const { t } = useTranslation();
@@ -61,7 +62,6 @@ const LoginForm = () => {
         <Form.Control
           name="username"
           id="username"
-          autoComplete="username"
           required
           type="text"
           placeholder="Ваш ник"

@@ -35,7 +35,7 @@ const AppRoutes = () => (
         />
         <Route path={routes.loginPage()} element={<LoginPage />} />
         <Route path={routes.signupPage()} element={<SignupPage />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route path={routes.randomPagePath()} element={<ErrorPage />} />
       </Route>
     </Routes>
   </Router>

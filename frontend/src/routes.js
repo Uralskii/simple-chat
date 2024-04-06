@@ -9,6 +9,7 @@ const routes = {
   chatPage: () => '/',
   loginPage: () => '/login',
   signupPage: () => '/signup',
+  randomPagePath: () => '*',
 };
 
 export default routes;

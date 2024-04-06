@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import LoginForm from '../../components/forms/LoginForm';
 import image from '../../assets/loginimage.jpg';
+import routes from '../../routes';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -17,7 +18,11 @@ const LoginPage = () => {
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
-              <Image src={image} roundedCircle alt="Войти" />
+              <Image
+                src={image}
+                roundedCircle
+                alt="Войти"
+              />
               <LoginForm />
             </Card.Body>
             <Card.Footer className="p-4">
@@ -25,7 +30,7 @@ const LoginPage = () => {
                 <span>
                   {t('text.loginFooterText')}
                 </span>
-                <Link to="/signup">
+                <Link to={routes.signupPath()}>
                   {t('text.loginFooterLink')}
                 </Link>
               </div>

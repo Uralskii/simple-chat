@@ -30,7 +30,7 @@ const LoginPage = () => {
                 <span>
                   {t('text.loginFooterText')}
                 </span>
-                <Link to={routes.signupPath()}>
+                <Link to={routes.signupPage()}>
                   {t('text.loginFooterLink')}
                 </Link>
               </div>

@@ -69,7 +69,7 @@ const AddModal = ({ isOpen, close }) => {
               id="name"
               required
               type="text"
-              placeholder="Пароль"
+              placeholder={t('modals.channelName')}
               value={formik.values.name}
               onChange={formik.handleChange}
               isInvalid={formik.errors.name && formik.touched.name}

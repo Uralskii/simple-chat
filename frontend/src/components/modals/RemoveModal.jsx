@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Modal, FormGroup, Form, Button,
@@ -13,6 +13,7 @@ import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../toast';
 
 const RemoveModal = ({ isOpen, close }) => {
+  const [disabledSumbitBtn, setDisabledSubmitBtn] = useState(false);
   const channelId = useSelector(getActiveChannelId);
 
   const { t } = useTranslation();
@@ -20,12 +21,14 @@ const RemoveModal = ({ isOpen, close }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setDisabledSubmitBtn(true);
       await axios.delete(routes.idChannelPath(channelId), { headers: getAuthHeader() });
       notification.successToast(t('toast.channelRemove'));
       close();
     } catch (err) {
       notification.errorNotify(t('errors.network'));
     }
+    setDisabledSubmitBtn(false);
   };
 
   return (
@@ -41,7 +44,7 @@ const RemoveModal = ({ isOpen, close }) => {
           </FormGroup>
           <div className="d-flex justify-content-end">
             <Button onClick={close} type="button" className="btn-secondary mt-2 me-2">{t('buttons.channels.back')}</Button>
-            <Button type="submit" className="btn-danger mt-2">{t('buttons.channels.remove')}</Button>
+            <Button disabled={disabledSumbitBtn} type="submit" className="btn-danger mt-2">{t('buttons.channels.remove')}</Button>
           </div>
         </Form>
       </Modal.Body>

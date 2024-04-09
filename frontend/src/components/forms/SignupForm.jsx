@@ -68,7 +68,7 @@ const SignupForm = () => {
           name="username"
           id="username"
           type="text"
-          placeholder="Ваш ник"
+          placeholder={t('signUpForm.username')}
           value={formik.values.username}
           onChange={formik.handleChange}
           ref={inputUsernameElem}
@@ -82,10 +82,9 @@ const SignupForm = () => {
         <Form.Control
           name="password"
           id="password"
-          autoComplete="current-password"
           required
           type="password"
-          placeholder="Пароль"
+          placeholder={t('signUpForm.password')}
           value={formik.values.password}
           onChange={formik.handleChange}
           isInvalid={(formik.errors.password && formik.touched.password) || validated}
@@ -99,7 +98,7 @@ const SignupForm = () => {
           name="confirmPassword"
           id="confirmPassword"
           type="password"
-          placeholder="Подтвердите пароль"
+          placeholder={t('signUpForm.confirmPassword')}
           value={formik.values.confirmPassword}
           onChange={formik.handleChange}
           isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword) || validated}

@@ -17,8 +17,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { from } = location.state;
+  const path = location.state === null ? routes.chatPage() : location.state.from;
 
   const { t } = useTranslation();
 
@@ -39,7 +38,7 @@ const LoginForm = () => {
         const res = await axios.post(routes.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(res.data));
         dispatch(setCredentials(res.data));
-        navigate(from);
+        navigate(path);
       } catch (err) {
         setIsInvalid(true);
         const responseStatus = err.response.status;
@@ -64,7 +63,7 @@ const LoginForm = () => {
           id="username"
           required
           type="text"
-          placeholder="Ваш ник"
+          placeholder={t('loginForm.username')}
           value={formik.values.username}
           onChange={formik.handleChange}
           ref={inputUsername}
@@ -79,7 +78,7 @@ const LoginForm = () => {
           id="password"
           required
           type="password"
-          placeholder="Пароль"
+          placeholder={t('loginForm.password')}
           value={formik.values.password}
           onChange={formik.handleChange}
           isInvalid={isInvalid}

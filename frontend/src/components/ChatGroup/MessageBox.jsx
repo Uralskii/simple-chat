@@ -6,7 +6,7 @@ import MessageItem from './MessageItem';
 import { messagesSelectors } from '../../slices/messageSlice';
 import { getActiveChannelId, getChannelMessages } from '../../slices/selectors';
 
-const MessageWindow = () => {
+const MessageBox = () => {
   const allChatMessages = useSelector(messagesSelectors.selectAll);
   const activeChannelId = useSelector(getActiveChannelId);
 
@@ -35,4 +35,4 @@ const MessageWindow = () => {
   );
 };
 
-export default MessageWindow;
+export default MessageBox;

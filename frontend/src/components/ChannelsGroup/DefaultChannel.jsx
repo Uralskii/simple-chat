@@ -2,8 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
+import { getActiveChannelId } from '../../slices/selectors';
+
 const DefaultChannel = ({ id, name, changeChannel }) => {
-  const { activeChannelId } = useSelector((state) => state.channels);
+  const activeChannelId = useSelector(getActiveChannelId);
   const isCurrent = activeChannelId === id ? 'secondary' : 'none';
 
   return (

@@ -8,8 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import AppRoutes from './AppRoutes.jsx';
-import Modal from './components/modals/Modal.jsx';
-import Toast from './components/toast/Toast.jsx';
+import Modal from './components/Modals/Modal.jsx';
+import Toast from './components/Toast/Toast.jsx';
 
 import initI18next from './initI18next.js';
 import store from './slices/store.js';

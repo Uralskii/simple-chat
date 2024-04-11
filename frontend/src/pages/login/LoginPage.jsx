@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import LoginForm from '../../components/forms/LoginForm';
+import LoginForm from '../../components/Forms/LoginForm';
 import image from '../../assets/loginimage.jpg';
 import routes from '../../routes';
 

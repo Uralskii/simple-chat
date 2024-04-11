@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
 const DefaultChannel = ({ id, name, changeChannel }) => {
-  const channelId = useSelector((state) => state.channels.activeChannelId);
-  const isCurrent = channelId === id ? 'secondary' : 'none';
+  const { activeChannelId } = useSelector((state) => state.channels);
+  const isCurrent = activeChannelId === id ? 'secondary' : 'none';
 
   return (
-    <li key={id} className="nav-item w-100">
+    <li className="nav-item w-100">
       <Button
         type="button"
         id={id}

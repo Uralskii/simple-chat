@@ -4,11 +4,12 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Container, Button, Navbar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { removeCredentials } from '../slices/userSlice.js';
-import Spinner from './Spinner.jsx';
+import { removeCredentials } from '../../slices/userSlice.js';
+import Spinner from '../Spinners/Spinner.jsx';
 
 const Header = () => {
   const { token } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const location = useLocation();
 

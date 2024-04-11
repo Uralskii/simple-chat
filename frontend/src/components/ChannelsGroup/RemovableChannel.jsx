@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { setModalShow } from '../../slices/modalSlice';
 
 const RemovableChannel = ({ id, name, changeChannel }) => {
-  const channelId = useSelector((state) => state.channels.activeChannelId);
-  const isCurrent = channelId === id ? 'secondary' : 'none';
+  const { activeChannelId } = useSelector((state) => state.channels);
+  const isCurrent = activeChannelId === id ? 'secondary' : 'none';
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ const RemovableChannel = ({ id, name, changeChannel }) => {
   };
 
   return (
-    <Dropdown key={id} className="d-flex" as={ButtonGroup}>
+    <Dropdown className="d-flex" as={ButtonGroup}>
       <Button
         type="button"
         className="w-100 rounded-0 text-start text-truncate"
@@ -28,9 +28,9 @@ const RemovableChannel = ({ id, name, changeChannel }) => {
         {name}
       </Button>
       <Dropdown.Toggle
+        id="dropdown-split-basic"
         split
         variant={isCurrent}
-        id="dropdown-split-basic"
       >
         <span className="visually-hidden">{t('buttons.channels.control')}</span>
       </Dropdown.Toggle>

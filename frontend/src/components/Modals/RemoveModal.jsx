@@ -4,13 +4,10 @@ import {
   Modal, FormGroup, Form, Button,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 
-import { getActiveChannelId } from '../../slices/selectors';
-
-import routes from '../../routes';
-import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../Toast/index.js';
+import { removeChannel } from '../../api/index.js';
+import { getActiveChannelId } from '../../slices/selectors';
 
 const RemoveModal = ({ isOpen, close }) => {
   const [disabledSumbitBtn, setDisabledSubmitBtn] = useState(false);
@@ -22,7 +19,7 @@ const RemoveModal = ({ isOpen, close }) => {
     e.preventDefault();
     try {
       setDisabledSubmitBtn(true);
-      await axios.delete(routes.idChannelPath(activeChannelId), { headers: getAuthHeader() });
+      await removeChannel(activeChannelId);
       notification.successToast(t('toast.channelRemove'));
       close();
     } catch (err) {

@@ -5,14 +5,11 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import * as yup from 'yup';
-import axios from 'axios';
 import filter from 'leo-profanity';
-
-import routes from '../../routes.js';
-import getAuthHeader from '../../utilities/getAuthHeader.js';
 
 import notification from '../Toast/index.js';
 import { channelsSelectors, changeChannel } from '../../slices/channelSlice.js';
+import { createChannel } from '../../api/index.js';
 
 const AddModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
@@ -43,8 +40,8 @@ const AddModal = ({ isOpen, close }) => {
       const channel = { name: filter.clean(name) };
 
       try {
-        const res = await axios.post(routes.channelsPath(), channel, { headers: getAuthHeader() });
-        dispatch(changeChannel(res.data));
+        const data = await createChannel(channel);
+        dispatch(changeChannel(data));
         notification.successToast(t('toast.channelAdd'));
         close();
       } catch (err) {

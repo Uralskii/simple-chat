@@ -4,14 +4,12 @@ import { useFormik } from 'formik';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import axios from 'axios';
 import * as yup from 'yup';
 
-import routes from '../../routes.js';
-import getAuthHeader from '../../utilities/getAuthHeader.js';
 import notification from '../Toast/index.js';
 
 import { channelsSelectors } from '../../slices/channelSlice';
+import { renameChannel } from '../../api/index.js';
 
 const RenameModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
@@ -41,8 +39,7 @@ const RenameModal = ({ isOpen, close }) => {
     },
     onSubmit: async (values) => {
       try {
-        // eslint-disable-next-line max-len
-        await axios.patch(routes.idChannelPath(activeChannelId), values, { headers: getAuthHeader() });
+        await renameChannel(activeChannelId, values);
         notification.successToast(t('toast.channelRename'));
         close();
       } catch (err) {

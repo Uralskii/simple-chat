@@ -17,6 +17,7 @@ import { addMessage } from './slices/messageSlice';
 import {
   removeChannel, changeChannel, addChannel, updateChannel,
 } from './slices/channelSlice.js';
+import ApiProvider from './context/ApiProvider.jsx';
 
 const rollbarConfig = {
   accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
@@ -51,9 +52,11 @@ const init = async () => {
       <ErrorBoundary>
         <Provider store={store}>
           <I18nextProvider i18n={i18Instance}>
-            <AppRoutes />
-            <Toast />
-            <Modal />
+            <ApiProvider>
+              <AppRoutes />
+              <Toast />
+              <Modal />
+            </ApiProvider>
           </I18nextProvider>
         </Provider>
       </ErrorBoundary>

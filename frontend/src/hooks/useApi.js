@@ -1,20 +1,6 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import routes from '../routes';
+import { useContext } from 'react';
+import ApiContext from '../context/ApiContext';
 
-// const Context = React.createContext();
+const useApi = () => useContext(ApiContext);
 
-// const ApiProvider = ({ children }) => {
-//   const createChannel = async (channel) => {
-//     const res = await axios.post(routes.channelsPath(), channel, { headers: getAuthHeader() });
-//     return res.data;
-//   };
-
-//   return (
-//     <Context.Provider value={{ createChannel }}>
-//       {children}
-//     </Context.Provider>
-//   );
-// };
-
-// export default ApiProvider;
+export default useApi;

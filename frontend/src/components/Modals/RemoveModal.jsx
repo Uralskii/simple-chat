@@ -6,20 +6,22 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import notification from '../Toast/index.js';
-import { removeChannel } from '../../api/index.js';
+import useApi from '../../hooks/useApi';
 import { getActiveChannelId } from '../../slices/selectors';
 
 const RemoveModal = ({ isOpen, close }) => {
   const [disabledSumbitBtn, setDisabledSubmitBtn] = useState(false);
   const activeChannelId = useSelector(getActiveChannelId);
 
+  const api = useApi();
   const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDisabledSubmitBtn(true);
+
     try {
-      setDisabledSubmitBtn(true);
-      await removeChannel(activeChannelId);
+      await api.removeChannel(activeChannelId);
       notification.successToast(t('toast.channelRemove'));
       close();
     } catch (err) {

@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
 import notification from '../Toast/index.js';
-
+import useApi from '../../hooks/useApi';
 import { channelsSelectors } from '../../slices/channelSlice';
-import { renameChannel } from '../../api/index.js';
 
 const RenameModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
@@ -17,6 +16,7 @@ const RenameModal = ({ isOpen, close }) => {
   const { activeChannelId } = useSelector((state) => state.channels);
   const { name } = useSelector((state) => channelsSelectors.selectById(state, activeChannelId));
 
+  const api = useApi();
   const { t } = useTranslation();
 
   const inputElem = useRef(null);
@@ -39,7 +39,7 @@ const RenameModal = ({ isOpen, close }) => {
     },
     onSubmit: async (values) => {
       try {
-        await renameChannel(activeChannelId, values);
+        await api.renameChannel(activeChannelId, values);
         notification.successToast(t('toast.channelRename'));
         close();
       } catch (err) {

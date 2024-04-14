@@ -5,9 +5,8 @@ import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import axios from 'axios';
-
 import routes from '../../routes';
+import useApi from '../../hooks/useApi';
 import { setCredentials } from '../../slices/userSlice';
 
 const LoginForm = () => {
@@ -16,6 +15,7 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const api = useApi();
 
   const location = useLocation();
   const path = location.state === null ? routes.chatPage() : location.state.from;
@@ -36,9 +36,8 @@ const LoginForm = () => {
       setIsInvalid(false);
 
       try {
-        const res = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(res.data));
-        dispatch(setCredentials(res.data));
+        const res = await api.loginUser(values);
+        dispatch(setCredentials(res));
         navigate(path);
       } catch (err) {
         setIsInvalid(true);
@@ -63,7 +62,7 @@ const LoginForm = () => {
           id="username"
           required
           type="text"
-          autocomplete="username"
+          autoComplete="username"
           placeholder={t('loginForm.username')}
           value={formik.values.username}
           onChange={formik.handleChange}
@@ -79,7 +78,7 @@ const LoginForm = () => {
           id="password"
           required
           type="password"
-          autocomplete="current-password"
+          autoComplete="current-password"
           placeholder={t('loginForm.password')}
           value={formik.values.password}
           onChange={formik.handleChange}

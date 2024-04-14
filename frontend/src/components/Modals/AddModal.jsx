@@ -7,14 +7,16 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import filter from 'leo-profanity';
 
+import useApi from '../../hooks/useApi';
 import notification from '../Toast/index.js';
 import { channelsSelectors, changeChannel } from '../../slices/channelSlice.js';
-import { createChannel } from '../../api/index.js';
 
 const AddModal = ({ isOpen, close }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map((channel) => channel.name);
+
   const dispatch = useDispatch();
+  const api = useApi();
 
   const { t } = useTranslation();
 
@@ -40,7 +42,7 @@ const AddModal = ({ isOpen, close }) => {
       const channel = { name: filter.clean(name) };
 
       try {
-        const data = await createChannel(channel);
+        const data = await api.createChannel(channel);
         dispatch(changeChannel(data));
         notification.successToast(t('toast.channelAdd'));
         close();

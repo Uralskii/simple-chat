@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 
-import axios from 'axios';
 import * as yup from 'yup';
 
 import routes from '../../routes';
+import useApi from '../../hooks/useApi';
 import { setCredentials } from '../../slices/userSlice';
 
 const SignupForm = () => {
@@ -16,6 +16,7 @@ const SignupForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const api = useApi();
 
   const { t } = useTranslation();
 
@@ -49,9 +50,8 @@ const SignupForm = () => {
       setValidated(false);
 
       try {
-        const res = await axios.post(routes.signupPath(), values);
-        dispatch(setCredentials(res.data));
-        localStorage.setItem('userId', JSON.stringify(res.data));
+        const res = await api.signupUser(values);
+        dispatch(setCredentials(res));
         navigate(routes.chatPage());
       } catch (err) {
         setValidated(true);

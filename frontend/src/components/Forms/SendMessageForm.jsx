@@ -4,17 +4,16 @@ import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import axios from 'axios';
 import filter from 'leo-profanity';
 
-import routes from '../../routes';
-import getAuthHeader from '../../utilities/getAuthHeader';
 import notification from '../Toast';
 import send from '../../assets/send.svg';
+import useApi from '../../hooks/useApi';
 
 const SendMessageForm = () => {
   const { username } = useSelector((state) => state.user);
   const { activeChannelId } = useSelector((state) => state.channels);
+  const api = useApi();
 
   const { t } = useTranslation();
 
@@ -35,7 +34,7 @@ const SendMessageForm = () => {
       };
 
       try {
-        await axios.post(routes.messagesPath(), newMessage, { headers: getAuthHeader() });
+        await api.postMessage(newMessage);
         resetForm();
       } catch (err) {
         notification.errorNotify(t('errors.network'));

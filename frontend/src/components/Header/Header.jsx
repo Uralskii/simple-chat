@@ -4,8 +4,8 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Container, Button, Navbar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { removeCredentials } from '../../slices/userSlice.js';
 import Spinner from '../Spinners/Spinner.jsx';
+import { removeCredentials } from '../../slices/userSlice.js';
 
 const Header = () => {
   const { token } = useSelector((state) => state.user);
@@ -17,7 +17,6 @@ const Header = () => {
 
   const handeleRemoveUser = () => () => {
     dispatch(removeCredentials());
-    localStorage.removeItem('userId');
   };
 
   return (
